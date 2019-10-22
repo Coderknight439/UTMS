@@ -18,7 +18,7 @@ def index(request):
         if user is not None:
             login(request, user)
             if user.groups.filter(name='passenger'):
-                return redirect('/home')
+                return redirect('/home/')
             elif user.is_superuser:
                 return redirect('/admin/')
             else:

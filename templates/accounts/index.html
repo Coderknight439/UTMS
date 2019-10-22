@@ -39,11 +39,10 @@
 						UTMS Login
 					</span>
 
-
+					<span class="label-input100">Username</span>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="username">
+						<input class="input100" type="text" name="username", placeholder="UserID/University Email">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Username</span>
 					</div>
 
 
@@ -62,7 +61,7 @@
 						</div>
 
 						<div>
-							<a href="#" class="txt1">
+							<a href="{% url 'password_reset' %}" class="txt1">
 								Forgot Password?
 							</a>
 						</div>
@@ -118,6 +117,5 @@
 	<script src="../../static/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="../../static/js/main.js"></script>
-
 </body>
 </html>
