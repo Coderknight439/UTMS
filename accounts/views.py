@@ -29,7 +29,8 @@ def index(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('/accounts/')
+    return redirect('/')
+
 
 
 def user_registration(request):

@@ -2,7 +2,13 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title %}{{ title }} | {{ 'ADMIN_NAME'|suit_conf }}{% endblock %}</title>
+  <title>
+    {% if not user.is_superuser %}
+    UTMS
+      {% else %}
+      UTMS Admin
+      {% endif %}
+  </title>
   {% block before_suit_styles %}{% endblock %}
   <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
   <link rel="stylesheet" type="text/css" href="{% static 'suit/bootstrap/css/bootstrap.min.css' %}" media="all"/>
@@ -105,7 +111,16 @@
             {% if not is_popup %}
               {% block breadcrumbs %}
                 <ul class="breadcrumb">
-                  <li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+                  <li>
+                      {% if not user.is_superuser %}
+                      <a href="{% url 'home' %}">
+                          {% trans 'Home' %}
+                      </a>
+                      {% else %}
+                          <a href="{% url 'admin:index' %}">
+                          {% trans 'Home' %}
+                      </a>
+                      {% endif %}
                     {% if title %}
                       <span class="divider">&raquo;</span>
                       </li>

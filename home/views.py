@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from accounts.models import Student, Teacher
 
 
+@login_required(login_url = '/')
 def index(request, **kwargs):
     username = request.user
     try:

@@ -15,6 +15,8 @@ class Passenger(models.Model):
     birth_date = models.DateField()
     nid_number = models.CharField(max_length=200, blank=True, default='')
     gender = models.CharField(choices=gender_list, max_length=200, default='')
+    height = models.DecimalField(max_digits = 2, decimal_places = 1, verbose_name = 'Height')
+    weight = models.IntegerField(verbose_name = 'Weight')
     religion = models.CharField(choices=religion_list, max_length=200, default='')
     marital_status = models.CharField(choices=marital_status_list, max_length=200, default='', blank=True,)
     email = models.EmailField(unique=True)
@@ -38,6 +40,8 @@ class Student(Passenger):
 
 
 class Teacher(Passenger):
+    joining_date = models.DateField(default = datetime.date)
+    resign_date = models.DateField(default = datetime.date)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     designation = models.CharField(choices=designation_list, max_length=200)
 

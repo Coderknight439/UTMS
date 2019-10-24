@@ -23,3 +23,13 @@ designation_list = [
     ('6', 'Chairman'),
     ('7', 'Dean'),
 ]
+# identity_mark_list = [
+#     ('0', 'Lecturer'),
+#     ('1','Senior Lecturer'),
+#     ('2', 'Professor'),
+#     ('3', 'Associate Professor'),
+#     ('4', 'Assistant Professor'),
+#     ('5', 'Coordinator'),
+#     ('6', 'Chairman'),
+#     ('7', 'Dean'),
+# ]
