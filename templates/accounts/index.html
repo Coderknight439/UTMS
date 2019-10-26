@@ -29,7 +29,6 @@
 <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
-
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -38,7 +37,13 @@
 					<span class="login100-form-title p-b-43">
 						UTMS Login
 					</span>
-
+					<span>
+						{% if messages %}
+							{% for message in messages %}
+							{{ message }}
+							{% endfor %}
+						{% endif %}
+					</span>
 					<span class="label-input100">Username</span>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="username", placeholder="UserID/University Email">
@@ -61,7 +66,7 @@
 						</div>
 
 						<div>
-							<a href="{% url 'password_reset' %}" class="txt1">
+							<a href="{url 'password_reset' }" class="txt1">
 								Forgot Password?
 							</a>
 						</div>
