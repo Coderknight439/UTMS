@@ -18,16 +18,16 @@ class Passenger(models.Model):
     height = models.DecimalField(max_digits=2, decimal_places=1, verbose_name='Height', default=0)
     weight = models.IntegerField(verbose_name='Weight', default=0)
     religion = models.CharField(choices=religion_list, max_length=200, default='')
-    marital_status = models.CharField(choices=marital_status_list, max_length=200, default='', blank=True, )
+    marital_status = models.CharField(choices=marital_status_list, max_length=200, default=1, blank=True, )
     email = models.EmailField(unique=True)
     slug = models.SlugField(max_length=100, unique=True, default='', editable=False)
     address_line_1 = models.CharField(max_length=200)
     address_line_2 = models.CharField(max_length=200, blank=True, default='')
     created_by = models.CharField(max_length=200, blank=True, verbose_name='Created By', default=None)
     updated_by = models.CharField(max_length=200, blank=True, verbose_name='Created By', default=None)
-    created_date = models.DateTimeField(max_length=200, blank=True, default=datetime.datetime.now())
-    updated_date = models.DateTimeField(max_length=200, blank=True, default=datetime.datetime.now())
-    is_active = models.BooleanField(default = True, verbose_name = 'Active')
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True, verbose_name='Active')
 
     class Meta:
         abstract = True
@@ -44,15 +44,13 @@ class Student(Passenger):
         ordering = ['student_id']
 
 
-
 class Teacher(Passenger):
-    joining_date = models.DateField(default=datetime.date.today)
-    resign_date = models.DateField(blank=True)
+
     employee_id = models.CharField(max_length=50, verbose_name='Employee ID', unique=True, default=0)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    designation = models.CharField(choices=designation_list, max_length=200)
-    previous_employment = models.CharField(max_length = 200, verbose_name = 'Previous Organization', blank = True)
-    experience = models.IntegerField(verbose_name = 'Experience', blank = True, default = 0)
+    designation = models.CharField(choices=designation_list, max_length=200, verbose_name='Designation', default=0)
+    previous_employment = models.CharField(max_length=200, verbose_name='Previous Organization', blank=True)
+    experience = models.IntegerField(verbose_name='Experience', blank=True, default=0)
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)

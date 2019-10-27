@@ -10,6 +10,7 @@ class RouteAdmin(admin.ModelAdmin):
     list_display = ('route_number', 'display_text', 'start_stoppage', 'destination')
     list_editable = ('display_text', 'start_stoppage', 'destination')
     actions = None
+    ordering = ['id']
 
     def save_model(self, request, obj, form, change):
         obj.created_by = request.user
@@ -20,12 +21,12 @@ class RouteAdmin(admin.ModelAdmin):
 
 @admin.register(Stoppage)
 class StoppageAdmin(admin.ModelAdmin):
-    list_display = ('route_id', 'location')
+    list_display = ('id', 'location')
     list_editable = ('location',)
     exclude = ('created_by', 'updated_by', 'created_date', 'updated_date')
+    ordering = ['location']
 
     def save_model(self, request, obj, form, change):
         obj.created_by = request.user
         obj.updated_by = request.user
-        obj.slug = slugify(obj.route_id)
         super().save_model(request, obj, form, change)
