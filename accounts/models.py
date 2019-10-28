@@ -19,7 +19,7 @@ class Passenger(models.Model):
     weight = models.IntegerField(verbose_name='Weight', default=0)
     religion = models.CharField(choices=religion_list, max_length=200, default='')
     marital_status = models.CharField(choices=marital_status_list, max_length=200, default=1, blank=True, )
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, blank = True)
     slug = models.SlugField(max_length=100, unique=True, default='', editable=False)
     address_line_1 = models.CharField(max_length=200)
     address_line_2 = models.CharField(max_length=200, blank=True, default='')
@@ -34,7 +34,7 @@ class Passenger(models.Model):
 
 
 class Student(Passenger):
-    student_id = models.CharField(unique=True, max_length=200, verbose_name='Student ID')
+    student_id = models.CharField(unique=True, max_length=200, verbose_name='Student ID', default = '', blank = True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
