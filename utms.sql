@@ -1081,3 +1081,10 @@ ALTER TABLE `vehicle_vehicleinfo`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--started 28-10-2019
+INSERT INTO `accounts_student` (`id`, `first_name`, `last_name`, `phone_number`, `emergency_number`, `birth_date`, `nid_number`, `gender`, `height`, `weight`, `religion`, `marital_status`, `email`, `slug`, `address_line_1`, `address_line_2`, `created_by`, `updated_by`, `created_date`, `updated_date`, `student_id`, `department_id`, `is_active`) VALUES
+(1, 'Shahporan', 'Himel', '01838894605', '', '2019-10-28', '', '0', '70.0', 75, '0', '1', '1930101@iubat.edu', '1930101', 'Uttara, Dhaka', '', 'mahadi', 'mahadi', '2019-10-28 17:56:34.493519', '2019-10-28 17:56:34.493519', '1930101', 1, 1),
+(8, 'Mahadi', 'Hassan', '01644342973', '', '2019-10-29', '', '0', '66.0', 68, '0', '1', '1930102@iubat.edu', '1930102', 'Uttara, Dhaka', '', 'mahadi', 'mahadi', '2019-10-28 18:37:21.941408', '2019-10-28 18:37:21.941408', '1930102', 1, 1),
+(9, 'Ashraf', 'Islam', '0954234567', '', '2019-10-29', '', '0', '71.0', 80, '0', '1', '1930103@iubat.edu', '1930103', 'Uttara, Dhaka', '', 'mahadi', 'mahadi', '2019-10-28 19:57:06.751286', '2019-10-28 19:57:06.752312', '1930103', 1, 1),
+(10, 'Sadia', 'Ahmed', '01787382451', '', '2019-10-29', '', '1', '63.0', 55, '0', '1', '1930104@iubat.edu', '1930104', 'Uttara, Dhaka', '', 'mahadi', 'mahadi', '2019-10-28 19:58:09.640230', '2019-10-28 19:58:09.640230', '1930104', 1, 1),
+(11, 'Shahjalal', 'Sarkar', '09876543', '', '2019-10-29', '', '0', '66.0', 67, '0', '1', '1930401@iubat.edu', '1930401', 'Uttara, Dhaka', '', 'mahadi', 'mahadi', '2019-10-28 20:20:11.225931', '2019-10-28 20:20:11.225931', '1930401', 4, 1);

@@ -1,7 +1,5 @@
-import datetime
-from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+from accounts.utils import format_inches_to_feet_and_inches
 from choices import gender_list, religion_list, marital_status_list, designation_list
 from departments.models import Department
 
@@ -12,17 +10,17 @@ class Passenger(models.Model):
     last_name = models.CharField(max_length=200, verbose_name='Last Name')
     phone_number = models.CharField(max_length=200, verbose_name='Contact No.')
     emergency_number = models.CharField(max_length=200, blank=True, verbose_name='Emergency Contact No.')
-    birth_date = models.DateField()
-    nid_number = models.CharField(max_length=200, blank=True, default='')
+    birth_date = models.DateField(verbose_name='Birth Date')
+    nid_number = models.CharField(max_length=200, blank=True, default='', verbose_name='NID')
     gender = models.CharField(choices=gender_list, max_length=200, default='')
-    height = models.DecimalField(max_digits=2, decimal_places=1, verbose_name='Height', default=0)
+    height = models.DecimalField(max_digits=3, decimal_places=1, verbose_name='Height', default=0)
     weight = models.IntegerField(verbose_name='Weight', default=0)
-    religion = models.CharField(choices=religion_list, max_length=200, default='')
-    marital_status = models.CharField(choices=marital_status_list, max_length=200, default=1, blank=True, )
-    email = models.EmailField(unique=True, blank = True)
+    religion = models.CharField(choices=religion_list, max_length=200, default='', verbose_name='Religion')
+    marital_status = models.CharField(choices=marital_status_list, max_length=200, default=1, blank=True, verbose_name='Marital Status')
+    email = models.EmailField(unique=True, blank=True)
     slug = models.SlugField(max_length=100, unique=True, default='', editable=False)
-    address_line_1 = models.CharField(max_length=200)
-    address_line_2 = models.CharField(max_length=200, blank=True, default='')
+    address_line_1 = models.CharField(max_length=200, verbose_name='Address-1')
+    address_line_2 = models.CharField(max_length=200, blank=True, default='', verbose_name='Address-2')
     created_by = models.CharField(max_length=200, blank=True, verbose_name='Created By', default=None)
     updated_by = models.CharField(max_length=200, blank=True, verbose_name='Created By', default=None)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -34,7 +32,7 @@ class Passenger(models.Model):
 
 
 class Student(Passenger):
-    student_id = models.CharField(unique=True, max_length=200, verbose_name='Student ID', default = '', blank = True)
+    student_id = models.CharField(unique=True, max_length=200, verbose_name='Student ID', default='', blank = True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -42,6 +40,10 @@ class Student(Passenger):
 
     class Meta:
         ordering = ['student_id']
+
+    @property
+    def height_in_feet_and_inches(self):
+        return format_inches_to_feet_and_inches(self.qty)
 
 
 class Teacher(Passenger):

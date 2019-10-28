@@ -37,21 +37,21 @@ class StudentAdmin(admin.ModelAdmin):
         for d in Department.objects.all():
             if obj.department == d:
                 if (month >=1) and month <=4:
-                    count = Student.objects.filter(student_id__icontains = 'year'+'10'+str(dep_count)).count()
+                    count = Student.objects.filter(student_id__icontains = year+'10'+str(dep_count)).count()
                     if obj.student_id == '':
                         if count>8:
                             obj.student_id = year+'10'+str(dep_count)+str(count+1)
                         else:
                             obj.student_id = year+'10'+str(dep_count)+'0'+str(count+1)
                 elif (month >=5) and month <=8:
-                    count = Student.objects.filter(student_id__icontains = 'year'+'20'+str(dep_count)).count()
+                    count = Student.objects.filter(student_id__icontains = year+'20'+str(dep_count)).count()
                     if obj.student_id == '':
                         if count>8:
                             obj.student_id = year+'20'+str(dep_count)+str(count+1)
                         else:
                             obj.student_id = year+'20'+str(dep_count)+'0'+str(count+1)
                 else:
-                    count = Student.objects.filter(student_id__icontains = 'year' + '30' + str(dep_count)).count()
+                    count = Student.objects.filter(student_id__icontains = year + '30' + str(dep_count)).count()
                     if obj.student_id == '':
                         if count > 8:
                             obj.student_id = year + '30' + str(dep_count) + str(count + 1)
@@ -60,6 +60,7 @@ class StudentAdmin(admin.ModelAdmin):
                 break
             dep_count += 1
         obj.email= obj.student_id+'@iubat.edu'
+        obj.slug = slugify(obj.student_id)
         super().save_model(request, obj, form, change)
 
     class Media:
