@@ -2,7 +2,7 @@ from django.contrib import admin
 import datetime
 from drivers.models import Driver, Staff
 from .models import Student, Teacher
-from .forms import StudentForm, TeacherForm
+from .forms import StudentForm, TeacherForm, DriverForm, StaffForm
 from django.utils.text import slugify
 from departments.models import Department
 
@@ -74,7 +74,7 @@ class TeacherAdmin(admin.ModelAdmin):
     list_display = ('employee_id', 'first_name', 'last_name', 'designation', 'department', 'is_active')
     list_filter = ('designation', 'department', 'is_active')
     list_editable = ('first_name', 'last_name', 'designation', 'is_active')
-    search_fields = ['employee_id']
+    search_fields = ['first_name']
     fieldsets = (
         ('Personal Information', {
             'fields': (
@@ -106,11 +106,23 @@ class TeacherAdmin(admin.ModelAdmin):
 
 @admin.register(Driver)
 class DriverAdmin(admin.ModelAdmin):
-    exclude = ['created_by', 'updated_by', 'created_date', 'updated_date']
+    form = DriverForm
+    exclude = ['created_by', 'updated_by', 'created_date', 'updated_date', 'employee_id', 'email']
     list_display = ('employee_id', 'first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
     list_filter = ('first_name', 'last_name', 'is_active')
     list_editable = ('first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
+    search_fields = ['first_name']
     actions = None
+    fieldsets = (
+        ('Personal Information', {
+            'fields': (
+                'first_name', 'last_name', 'phone_number', 'emergency_number', 'nid_number', 'birth_date', 'gender',
+                'height', 'weight', 'marital_status', 'religion', 'address_line_1', 'address_line_2')
+        }),
+        ('Current Organization Information', {
+            'fields': ('is_active',)
+        }),
+    )
 
     def save_model(self, request, obj, form, change):
         obj.created_by = str(request.user)
@@ -128,11 +140,22 @@ class DriverAdmin(admin.ModelAdmin):
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
-    exclude = ['created_by', 'updated_by', 'created_date', 'updated_date']
+    form = StaffForm
+    exclude = ['created_by', 'updated_by', 'created_date', 'updated_date', 'employee_id', 'email']
     list_display = ('employee_id', 'first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
     list_filter = ('first_name', 'last_name', 'is_active')
     list_editable = ('first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
     actions = None
+    fieldsets = (
+        ('Personal Information', {
+            'fields': (
+                'first_name', 'last_name', 'phone_number', 'emergency_number', 'nid_number', 'birth_date', 'gender',
+                'height', 'weight', 'marital_status', 'religion', 'address_line_1', 'address_line_2')
+        }),
+        ('Current Organization Information', {
+            'fields': ('is_active',)
+        }),
+    )
 
     def save_model(self, request, obj, form, change):
         obj.created_by = str(request.user)

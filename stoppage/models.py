@@ -12,3 +12,11 @@ class Stoppage(models.Model):
 
     def __str__(self):
         return '{}'.format(self.location)
+
+
+class RouteStoppage(models.Model):
+    route_name = models.ForeignKey(RouteInfo, on_delete=models.CASCADE, verbose_name='Route')
+    stoppage_name = models.ForeignKey(Stoppage, on_delete=models.CASCADE, verbose_name='Stoppage', related_name='stoppage')
+
+    def __str__(self):
+        return '{} to route {}'.format(self.stoppage_name, self.route_name)
