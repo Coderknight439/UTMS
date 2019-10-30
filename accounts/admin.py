@@ -75,6 +75,7 @@ class TeacherAdmin(admin.ModelAdmin):
     list_filter = ('designation', 'department', 'is_active')
     list_editable = ('first_name', 'last_name', 'designation', 'is_active')
     search_fields = ['first_name']
+    change_list_template = 'admin/accounts/teacher/change_list.html'
     fieldsets = (
         ('Personal Information', {
             'fields': (
