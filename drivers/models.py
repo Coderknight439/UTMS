@@ -9,6 +9,7 @@ class Driver(Passenger):
     # joining_date = DateField(auto_now_add=)
     # resign_date = DateField()
     designation = CharField(max_length = 200, default='Driver', editable = False)
+    is_free = BooleanField(default=True, verbose_name='Free')
 
     # identity_mark = CharField(choices = identity_mark_list, max_length = 200, blank = True)
 
@@ -24,6 +25,7 @@ class Staff(Passenger):
     # joining_date = DateField(auto_now_add=True)
     # # resign_date = DateField(blank = True)
     designation = CharField(max_length = 200, default='Bus Staff', editable = False)
+    is_free = BooleanField(default=True, verbose_name='Free')
 
     def __str__(self):
         return "{} {}".format(self.first_name, self.last_name)

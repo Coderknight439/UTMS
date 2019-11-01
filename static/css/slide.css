@@ -1,0 +1,22 @@
+#slideshow {
+  margin-top: 230px;
+  margin-left: 156px;
+  position: relative;
+  width: 450px;
+  height: 150px;
+  padding: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  background: #A9A9A9;
+}
+
+#slideshow > div {
+  position: absolute;
+  top: 40px;
+  left: 106px;
+  right: 10px;
+  bottom: 10px;
+}
+#slideshow > div > label {
+  text-align: centre;
+  color: cyan;
+}

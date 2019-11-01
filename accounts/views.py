@@ -1,4 +1,4 @@
-from _datetime import datetime
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, logout, authenticate
 from .models import Student, Teacher
 from django.db.models import Q
+from transport_schedule.models import TransportSchedule
 
 
 # Create your views here.
@@ -22,8 +23,9 @@ def index(request):
                 return redirect('/admin/')
         else:
             messages.error(request, 'Provide Valid Credentials')
-            return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.now().year})
-    return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.now().year})
+            return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.datetime.now().year})
+    transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now())
+    return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.datetime.now().year, 'schedule': transport_schedule})
 
 
 def user_logout(request):

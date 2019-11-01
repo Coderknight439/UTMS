@@ -26,6 +26,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/slide.css">
 <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
@@ -97,6 +98,15 @@
 				</form>
 
 				<div class="login100-more" style="background-image: url('../../static/images/bg-01.jpg');">
+					<div id="slideshow">
+						{% for schedule in schedule %}
+					   <div class="display">
+						 <label>Vehicle: {{ schedule.vehicle_route }}</label>
+						   <label>Route: {{ schedule.vehicle_route.route.display_text }}</label>
+						   <label>Time: {{ schedule.start_time }}</label>
+					   </div>
+						{% endfor %}
+				</div>
 				</div>
 			</div>
 		</div>
@@ -122,5 +132,17 @@
 	<script src="../../static/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="../../static/js/main.js"></script>
+<script>
+	$("#slideshow > div:gt(0)").hide();
+
+setInterval(function() {
+  $('#slideshow > div:first')
+    .fadeOut(1000)
+    .next()
+    .fadeIn(1000)
+    .end()
+    .appendTo('#slideshow');
+}, 3000);
+</script>
 </body>
 </html>
