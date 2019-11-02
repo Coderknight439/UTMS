@@ -8,6 +8,8 @@ from .models import Student, Teacher
 from django.db.models import Q
 from transport_schedule.models import TransportSchedule
 
+from django.utils import timezone
+
 
 # Create your views here.
 def index(request):
@@ -24,7 +26,7 @@ def index(request):
         else:
             messages.error(request, 'Provide Valid Credentials')
             return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.datetime.now().year})
-    transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now())
+    transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now().time())
     return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.datetime.now().year, 'schedule': transport_schedule})
 
 
