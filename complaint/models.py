@@ -12,7 +12,7 @@ class Complaint(models.Model):
     accepted_by = models.CharField(max_length=100, verbose_name='Accepted By')
     updated_by = models.DateField(auto_now=True)
     status = models.CharField(max_length=200, choices=complaint_status, default=complaint_status[0][0])
-    bus_number = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE)
+    bus_number = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE, default = '')
     description = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
