@@ -13,8 +13,8 @@ class VehicleInfo(models.Model):
 	capacity = models.IntegerField(verbose_name='Capacity')
 	status = models.CharField(max_length=20, choices=vehicle_status, default=0, verbose_name='Status')
 	route = models.ForeignKey(RouteInfo, on_delete=models.CASCADE, verbose_name='Route')
-	driver = models.OneToOneField(Driver, null=True, blank=True, on_delete=models.CASCADE)
-	staff = models.OneToOneField(Staff, null=True, blank = True, on_delete = models.CASCADE)
+	driver = models.OneToOneField(Driver, null=True, blank=True, on_delete=models.CASCADE, limit_choices_to={'is_free': True})
+	staff = models.OneToOneField(Staff, null=True, blank = True, on_delete = models.CASCADE, limit_choices_to={'is_free': True})
 	is_scheduled = models.BooleanField(default=False, verbose_name='Scheduled', blank=True)
 
 	def __str__(self):

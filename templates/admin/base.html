@@ -17,11 +17,13 @@
   {% block extrastyle %}
     <style>
   :root {
-    --primary-color: #1d1d1b;
-    --primary-color-faded: #585853;
-    --secondary-color: #4dffba;
+    --primary-color: #151B54;
+    --primary-color-faded: #E42217;
+    --secondary-color: white;
   }
-
+  #result_list > th {
+  background: #64E986;
+  }
   ::selection {
     background: var(--secondary-color);
     color:var(--primary-color);
@@ -30,9 +32,10 @@
 
   ::-moz-selection {
     background: var(--secondary-color);
-    color:var(--primary-color);
+    color:;
     opacity:1
   }
+
   body {
     font-family:
           -apple-system,
@@ -50,13 +53,13 @@
     background: var(--primary-color);
   }
   .module h2, .module caption, .inline-group h2 {
-    background-color: var(--primary-color-faded);
+    background-color: #151B54;
   }
   div.breadcrumbs {
-    background: var(--primary-color-faded);
+    background: #151B54;
   }
   a:link, a:visited {
-    color: var(--primary-color-faded);
+    color:#E42217;
   }
   .selector-chosen h2 {
     background: var(--primary-color-faded) !important;
@@ -74,6 +77,9 @@
   .button.default:active, input[type=submit].default:active, .button.default:focus, input[type=submit].default:focus, .button.default:hover, input[type=submit].default:hover {
     background: var(--primary-color);
     opacity: 0.8;
+  }
+  th{
+  background: #64E986;
   }
 </style>
     {% endblock %}

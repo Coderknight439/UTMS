@@ -22,7 +22,7 @@
               <tr>
                 <th scope="row">{{ model.name }}</th>
                 {% if model.admin_url %}
-                  <td>
+                  <td style="background:#151B54;">
                     <a href="{{ model.admin_url }}" class="changelink icon">{% trans 'Change' %}</a>
                   </td>
                 {% else %}
@@ -30,7 +30,7 @@
                 {% endif %}
 
                 {% if model.add_url %}
-                  <td><a href="{{ model.add_url }}" class="addlink icon"><i
+                  <td style="background:#151B54;"><a href="{{ model.add_url }}" class="addlink icon"><i
                           class="icon-plus-sign icon-alpha75"></i>{% trans 'Add' %}
                   </a></td>
                 {% else %}
