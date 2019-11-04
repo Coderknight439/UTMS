@@ -7,7 +7,7 @@ from drivers.models import Driver, Staff
 class VehicleAdmin(admin.ModelAdmin):
     exclude = ['vehicle_number', 'is_scheduled']
     list_display = ['vehicle_number', 'vehicle_type', 'route', 'driver', 'status']
-    list_editable = ['route', 'driver', 'status']
+    list_editable = ['route', 'status']
     list_filter = ['route', 'vehicle_type', 'status']
     ordering = ['vehicle_number']
     search_fields = ['vehicle_number']

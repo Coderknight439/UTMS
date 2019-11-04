@@ -5,7 +5,7 @@ from vehicle.models import VehicleInfo
 
 
 class Complaint(models.Model):
-    complaint_type = models.CharField(max_length=100, choices=complaint_type, verbose_name='Type')
+    complaint_type = models.CharField(max_length=100, choices=complaint_type, verbose_name='Type', default=complaint_type[0][0])
     incident_date = models.DateField(blank=True, verbose_name='Incident Date')
     complaint_date = models.DateTimeField(verbose_name='Complaint Date', auto_now_add=True)
     complaint_by = models.CharField(max_length=200, blank = False)
