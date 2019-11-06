@@ -69,3 +69,4 @@ vehicle_status = [
     ('2', 'New'),
     ('3', 'Broken'),
 ]
+
