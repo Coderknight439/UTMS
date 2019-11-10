@@ -1,0 +1,51 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <table class="table-overview">
+            <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
+           <tr style="color:purple">
+               <td >Vehicle Number</td>
+               <td>Complaint Type</td>
+               <td>Incident Date</td>
+               <td>Complaint Date</td>
+               <th>Accepted By</th>
+               <th>Status</th>
+           </tr>
+              {% if complaint %}
+              {% for row in complaint %}
+              <tr>
+              <td>{{ row.bus_number }}</td>
+              <td>{{ row.get_complaint_type_display }}</td>
+              <td>{{ row.incident_date }}</td>
+              <td>{{ row.complaint_date }}</td>
+              <td>{{ row.accepted_by }}</td>
+              <td>{{ row.get_status_display }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center">
+                    <p>Sorry! &#x1F60C;</p>
+                    You didn't file any complaint yet
+                </th>
+                </tr>
+              {% endif %}
+          </table>
+    <a type="submit" href="{% url 'complaint_add' %}" class="btn btn-high btn-success" style="width:127px" >Add</a>
+        </div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+</div>
+{% endblock %}

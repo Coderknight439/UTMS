@@ -12,7 +12,12 @@ class ComplaintAdmin(admin.ModelAdmin):
 	search_fields = ['bus_number']
 	ordering = ['complaint_date']
 
+	def get_readonly_fields(self, request, obj=None):
+		if request.user.is_staff:
+			return ['complaint_by', 'bus_number', 'complaint_date', 'incident_date', 'complaint_type', 'description']
+
 	def save_model(self, request, obj, form, change):
-		obj.accepted_by = request.user
-		obj.complaint_by = request.user
+		status = obj.get_status_display()
+		if status == 'Accepted':
+			obj.accepted_by = str(request.user)
 		super().save_model(request, obj, form, change)

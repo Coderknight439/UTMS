@@ -14,6 +14,9 @@
   <link rel="stylesheet" type="text/css" href="{% static 'suit/bootstrap/css/bootstrap.min.css' %}" media="all"/>
   <link rel="stylesheet" type="text/css" href="{% static 'suit/css/suit.css' %}" media="all">
    <link rel="stylesheet" type="text/css" href="../../../static/css/custom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../../static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+  <script type="text/javascript" src="../../static/vendor/jquery/jquery-3.2.1.min.js">
   <!--{% block extrastyle %}-->
     <!--<style>-->
   <!--:root {-->
@@ -141,7 +144,7 @@
               </div>-->
             {% endblock %}
 
-            {% if user.is_active and user.is_staff %}
+            {% if user.is_active %}
               <div id="user-tools">
                 {% block welcome-msg %}
                   {% trans 'Welcome,' %}
@@ -156,7 +159,7 @@
                     <a href="{{ docsroot }}">{% trans 'Documentation' %}</a>
                     <span class="separator">|</span>
                   {% endif %}
-                  <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
+                  <a href="{% url 'password_change' %}">{% trans 'Change password' %}</a>
                   <span class="separator">|</span>
                   <a href="{% url 'user_logout' %}">{% trans 'Log out' %}</a>
                 {% endblock %}
@@ -233,6 +236,7 @@
         {% block content-left %}
           {% if not is_popup %}
             <div id="suit-left" class="suit-column">
+              {% if user.is_superuser or user.is_staff %}
               {% block quick-search %}
                 {% with 'SEARCH_URL'|suit_conf as search_url %}
                   {% if search_url %}
@@ -244,7 +248,7 @@
                   {% endif %}
                 {% endwith %}
               {% endblock %}
-
+              {% endif %}
               {% include 'suit/menu.html' %}
 
             </div>
@@ -288,7 +292,8 @@
   {% endif %}
 {% endblock %}
 
-  <script src="{% static 'suit/js/suit.js' %}"></script>
+  <script src="{% static 'suit/js/suit.js' %}">
+  </script>
   {% block extrajs %}{% endblock %}
 
 </body>

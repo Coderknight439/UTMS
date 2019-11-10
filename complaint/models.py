@@ -9,10 +9,10 @@ class Complaint(models.Model):
     incident_date = models.DateField(blank=True, verbose_name='Incident Date')
     complaint_date = models.DateTimeField(verbose_name='Complaint Date', auto_now_add=True)
     complaint_by = models.CharField(max_length=200, blank = False)
-    accepted_by = models.CharField(max_length=100, verbose_name='Accepted By')
+    accepted_by = models.CharField(max_length=100, verbose_name='Accepted By', default='None')
     updated_by = models.DateField(auto_now=True)
     status = models.CharField(max_length=200, choices=complaint_status, default=complaint_status[0][0])
-    bus_number = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE, default = '')
+    bus_number = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE, default = '', verbose_name='Vehicle')
     description = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
@@ -20,3 +20,4 @@ class Complaint(models.Model):
 
     class Meta:
         ordering = ['complaint_type', 'complaint_date']
+        permissions = [('can_change_status', 'Can Update Status')]

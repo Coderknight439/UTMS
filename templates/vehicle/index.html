@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="module">
+</div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="content-related">
+    <table class="table-overview" style="">
+            <caption><a href="{% url 'vehicle_index' %}" class="section">Vehicle List</a></caption>
+           <tr style="text-align:center; color:purple">
+               <td>Vehicle</td>
+               <th style="text-align:center">Type</th>
+               <th style="text-align:center">Capacity</th>
+                <th style="text-align:center">Route</th>
+                <th style="text-align:center">Driver</th>
+               <th style="text-align:center">Driver Contact</th>
+                <th style="text-align:center">Staff</th>
+                <th style="text-align:center">Status</th>
+           </tr>
+              {% if vehicle %}
+              {% for row in vehicle %}
+              <tr style="text-align:center">
+                  <td><a href="{% url 'vehicle_view' row.vehicle_number %}">{{ row.vehicle_number }}</a></td>
+              <td>{{ row.get_vehicle_type_display }}</td>
+              <td>{{ row.capacity }}</td>
+              <td>{{ row.route.display_text }}</td>
+              <td>{{ row.driver }}</td>
+              <td>{{ row.driver.phone_number }}</td>
+              <td>{{ row.staff }}</td>
+              <td>{{ row.get_status_display }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> No Vehicle to view</th>
+                </tr>
+              {% endif %}
+          </table>
+</div>
+
+{% endblock %}

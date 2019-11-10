@@ -9,5 +9,8 @@ class Vendor(models.Model):
 	contact_number = models.CharField(max_length=15, verbose_name='Phone')
 	email = models.EmailField(blank=True)
 
+	def __str__(self):
+		return "{}".format(self.name)
+
 	class Meta:
 		db_table = 'vendors'

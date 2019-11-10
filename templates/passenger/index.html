@@ -1,0 +1,118 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="module">
+          <table class="table-overview" style="width:450px;">
+            <caption><a href="#" class="section">Upcoming Schedule</a></caption>
+           <tr style="text-align:center; color:purple">
+               <td>Vehicle</td>
+               <th style="text-align:center">Route</th>
+               <th style="text-align:center">Start Time</th>
+           </tr>
+              {% if schedule %}
+              {% for row in schedule %}
+              <tr style="text-align:center">
+              <td>{{ row.vehicle_route }}</td>
+              <td>{{ row.vehicle_route.route.display_text }}</td>
+              <td>{{ row.start_time }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> No upcoming schedule for today</th>
+                </tr>
+              {% endif %}
+          </table>
+    <table class="table-overview" style="width:450px;">
+            <caption><a href="#" class="section">Complaint Box</a></caption>
+           <tr style="color:purple; text-align:center;">
+               <td>Date</td>
+               <th style="text-align:center">Accepted</th>
+               <th style="text-align:center">Status</th>
+           </tr>
+              {% if complaint %}
+              {% for row in complaint %}
+              <tr style="text-align:center">
+              <td>{{ row.complaint_date.date }}</td>
+                  {% if row.accepted_by %}
+              <td>{{ row.accepted_by }}</td>
+                  {% else %}
+                  <td>None</td>
+                  {% endif %}
+              <td>{{ row.get_status_display }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center">
+                    <p>Sorry! &#x1F60C;</p>
+                    You didn't file any complaint yet
+                </th>
+                </tr>
+              {% endif %}
+          </table>
+        </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <table class="table-overview" style="margin-left:40px;width:450px;">
+            <caption><a href="#" class="section">Ticketing</a></caption>
+           <tr style="text-align:center; color:purple">
+               <td>Ticket No.</td>
+               <th style="text-align:center">Issued On</th>
+               <th style="text-align:center">Expired On</th>
+           </tr>
+              {% if schedule %}
+              {% for row in schedule %}
+              <tr style="text-align:center">
+              <td>{{ row.vehicle_route }}</td>
+              <td>{{ row.vehicle_route.route.display_text }}</td>
+              <td>{{ row.start_time }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> No upcoming schedule for today</th>
+                </tr>
+              {% endif %}
+          </table>
+     <table class="table-overview" style="margin-left:40px; margin-top:2px; width:450px;">
+            <caption><a href="{% url 'vehicle_index' %}" class="section">Vehicle Info</a></caption>
+           <tr style="text-align:center; color:purple">
+               <td>Vehicle</td>
+               <th style="text-align:center">Route</th>
+               <th style="text-align:center">Driver</th>
+               <th style="text-align:center">Staff</th>
+           </tr>
+              {% if vehicle %}
+              {% for row in vehicle %}
+              <tr style="text-align:center">
+              <td>{{ row.vehicle_number }}</td>
+              <td>{{ row.route }}</td>
+              <td>{{ row.driver }}</td>
+              <td>{{ row.staff }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center">
+                    <p>Sorry! &#x1F60C;</p>
+                    You didn't file any complaint yet
+                </th>
+                </tr>
+              {% endif %}
+          </table>
+</div>
+{% endblock %}

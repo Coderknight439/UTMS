@@ -1,0 +1,62 @@
+{#{% load sitetree %}#}
+{% load i18n suit_menu %}
+{% load url from suit_compat %}
+
+<div class="left-nav" id="left-nav">
+  <ul>
+    {% block menu_home %}
+    {% if user.is_superuser or user.is_staff %}
+      {% url 'admin:index' as index_url %}
+      <li{% if index_url == request.path %} class="active"{% endif %}>
+        <a href="{{ index_url }}"><i class="icon-home"></i>{% trans 'Home' %}
+        </a>
+      </li>
+    {% else %}
+    {% url 'home' as index_url %}
+    <li{% if index_url == request.path %} class="active"{% endif %}>
+        <a href="{{ index_url }}"><i class="icon-home"></i>{% trans 'Home' %}
+        </a>
+      </li>
+    {% endif %}
+    {% endblock %}
+{% if user.is_superuser or user.is_staff %}
+    {% get_menu request as app_list %}
+    {% if app_list %}
+      {% for app in app_list %}
+        {% if app.separator %}
+          <li class="separator"></li>
+        {% else %}
+          <li{{ app.is_active|yesno:' class=active,' }}>
+            <a href="{{ app.url }}"{{ app.blank|yesno:' target=_blank,' }}><i class="{% firstof app.icon 'icon-chevron-right' %}"></i>{% trans app.label|capfirst %}
+            </a>
+            {% if app.models %}
+              <ul>
+                {% for model in app.models %}
+                  <li{{ model.is_active|yesno:' class=active,' }}>
+                    <a href="{{ model.url }}"{{ model.blank|yesno:' target=_blank,' }}>{{ model.label }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+{% else %}
+       <li>
+        <a href="{% url 'profile' %}"><i class="fa fa-user-circle"></i>My Profile</a>
+      </li>
+       <li>
+        <a href="{% url 'complaint_index' %}"><i class="fa fa-comments"></i>Complaint</a>
+      </li>
+       <li>
+        <a href="{% url 'profile' %}"><i class="fa fa-road"></i>Vehicle Schedule</a>
+      </li>
+      <li>
+        <a href="{% url 'profile' %}"><i class="fa fa-car"></i>Vehicle Info</a>
+      </li>
+       <li>
+        <a href="{% url 'profile' %}"><i class="fa fa-ticket"></i>Ticketing</a>
+      </li>
+      {% endif %}
+  </ul>
+</div>

@@ -99,6 +99,7 @@
 
 				<div class="login100-more" style="background-image: url('../../static/images/bg-01.jpg');">
 					<div id="slideshow">
+						{% if schedule %}
 						{% for schedule in schedule %}
 					   <div class="display">
 						 <label>Vehicle: {{ schedule.vehicle_route }}</label>
@@ -106,6 +107,10 @@
 						   <label>Time: {{ schedule.start_time }}</label>
 					   </div>
 						{% endfor %}
+						{% else %}
+						 <p style="text-align:center; color:cyan; margin-top:40px">Sorry! &#x1F60C;</p>
+						<p style="text-align:center; color:cyan">No upcoming schedule for today</p>
+						{% endif %}
 				</div>
 				</div>
 			</div>

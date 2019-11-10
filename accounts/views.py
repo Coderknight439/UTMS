@@ -21,13 +21,13 @@ def index(request):
             login(request, user)
             if user.groups.filter(name='passenger'):
                 return redirect('/home/')
-            elif user.is_superuser:
+            elif user.is_superuser or user.is_staff:
                 return redirect('/admin/')
         else:
             messages.error(request, 'Provide Valid Credentials')
-            return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.datetime.now().year})
+            return render(request, 'registration/login.html', {'title': 'UTMS', 'year': datetime.datetime.now().year})
     transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now().time())
-    return render(request, 'accounts/index.html', {'title': 'UTMS', 'year': datetime.datetime.now().year, 'schedule': transport_schedule})
+    return render(request, 'registration/login.html', {'title': 'UTMS', 'year': datetime.datetime.now().year, 'schedule': transport_schedule})
 
 
 def user_logout(request):
@@ -75,8 +75,12 @@ def user_registration(request):
                 return redirect('/')
             else:
                 messages.info(request, 'You are not registered, Talk to admin please')
-                return render(request, 'accounts/registration.html', {'title': 'UTMS Registration'})
+                return render(request, 'registration/registration.html', {'title': 'UTMS Registration'})
         else:
             messages.success(request, 'You are already Registered. Did you forget password?')
             return redirect('/')
-    return render(request, 'accounts/registration.html', {'title': 'UTMS Registration'})
+    return render(request, 'registration/registration.html', {'title': 'UTMS Registration'})
+
+
+def profile(request, **kwargs):
+    return render(request, 'passenger/profile.html', {'title': 'My Profile'})
