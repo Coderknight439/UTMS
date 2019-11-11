@@ -18,8 +18,8 @@
                <td>Complaint Type</td>
                <td>Incident Date</td>
                <td>Complaint Date</td>
-               <th>Accepted By</th>
-               <th>Status</th>
+               <td>Accepted By</td>
+               <td>Status</td>
            </tr>
               {% if complaint %}
               {% for row in complaint %}
@@ -34,7 +34,7 @@
               {% endfor %}
               {% else %}
                 <tr>
-                <th colspan="4" style="text-align:center">
+                <th colspan="6" style="text-align:center">
                     <p>Sorry! &#x1F60C;</p>
                     You didn't file any complaint yet
                 </th>

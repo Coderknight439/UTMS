@@ -42,7 +42,11 @@ def user_registration(request):
         password = request.POST['password']
         # import pdb;
         # pdb.set_trace()
-        existing_user = User.objects.get(username=username)
+        try:
+            existing_user = User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            existing_user = None
+
         if not existing_user:
             try:
                 teacher_username = Teacher.objects.get(email=username)
