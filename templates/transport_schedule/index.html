@@ -1,0 +1,45 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="module">
+</div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="content-related">
+    <table class="table-overview" style="width:1200px; margin-left: 60px;">
+            <caption><a href="{% url 'schedule_index' %}" class="section">Transport Schedule List</a></caption>
+           <tr style="text-align:center; color:purple">
+               <td>Vehicle</td>
+                <th style="text-align:center">Route</th>
+                <th style="text-align:center">Start Time</th>
+                <th style="text-align:center">ET</th>
+           </tr>
+              {% if schedule %}
+              {% for row in schedule %}
+              <tr style="text-align:center">
+                  <td><a href="{% url 'vehicle_view' row.vehicle_route %}">{{ row.vehicle_route }}</a></td>
+              <td>{{ row.vehicle_route.route.display_text }}</td>
+              <td>{{ row.start_time }}</td>
+              <td>{{ row.et }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> No Schedule to view</th>
+                </tr>
+              {% endif %}
+          </table>
+</div>
+
+{% endblock %}

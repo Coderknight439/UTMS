@@ -30,6 +30,5 @@ class VehicleAdmin(admin.ModelAdmin):
         staff.save()
         if obj.vehicle_number == "":
             obj.vehicle_number = vehicle_type +'-'+str(int(vehicle_no)+1)
-            obj.is_scheduled = True
         super().save_model(request, obj, form, change)
 

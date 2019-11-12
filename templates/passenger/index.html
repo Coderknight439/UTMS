@@ -22,7 +22,7 @@
               {% if schedule %}
               {% for row in schedule %}
               <tr style="text-align:center">
-              <td>{{ row.vehicle_route }}</td>
+                  <td><a href="{%  url 'vehicle_view' row.vehicle_route %}">{{ row.vehicle_route }}</a></td>
               <td>{{ row.vehicle_route.route.display_text }}</td>
               <td>{{ row.start_time }}</td>
               </tr>
@@ -34,7 +34,7 @@
               {% endif %}
           </table>
     <table class="table-overview" style="width:450px;">
-            <caption><a href="#" class="section">Complaint Box</a></caption>
+            <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
            <tr style="color:purple; text-align:center;">
                <td>Date</td>
                <th style="text-align:center">Accepted</th>
@@ -99,7 +99,7 @@
               {% if vehicle %}
               {% for row in vehicle %}
               <tr style="text-align:center">
-              <td>{{ row.vehicle_number }}</td>
+                  <td><a href="{%  url 'vehicle_view' row.vehicle_number %}">{{ row.vehicle_number }}</a></td>
               <td>{{ row.route }}</td>
               <td>{{ row.driver }}</td>
               <td>{{ row.staff }}</td>

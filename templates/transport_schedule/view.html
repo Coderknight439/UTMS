@@ -1,0 +1,103 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+<div class="module">
+    <table class="table-overview" style="width:300px">
+            <caption><a href="{% url 'vehicle_index' %}" class="section">Vehicle Details</a></caption>
+               <tr>
+                   <td style="text-align:right; background-color:#87ceeb;">Vehicle:</td>
+                   <th colspan="3" style="text-align:left;">{{ vehicle.vehicle_number }}</th>
+               </tr>
+               <tr>
+                   <td style="text-align:right;  background-color:#87ceeb;">Type:</td>
+                   <th colspan="3" style="text-align:left">{{ vehicle.vehicle_type }}</th>
+               </tr>
+               <tr>
+                   <td style="text-align:right; background-color:#87ceeb;">Color:</td>
+                   <th colspan="3" style="text-align:left">{{ vehicle.color }}</th>
+               </tr>
+               <tr>
+                   <td style="text-align:right;  background-color:#87ceeb;">Capacity:</td>
+                   <th colspan="3" style="text-align:left">{{ vehicle.capacity }}</th>
+               </tr>
+                <tr>
+                    <td style="text-align:right;  background-color:#87ceeb;">License No:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.license_number }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;  background-color:#87ceeb;">Engine:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.engine }}</th>
+                </tr>
+                <tr>
+                   <td style="text-align:right;  background-color:#87ceeb;">Status:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.get_status_display }}</th>
+                </tr>
+</table>
+     <table class="table-overview" style="width:300px">
+            <caption><a href="{% url 'vehicle_index' %}" class="section">Route Details</a></caption>
+                <tr>
+                    <td style="text-align:right; width:122px;background-color:#87ceeb;">Route:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.route.display_text }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">From:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.route.start_stoppage }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">To:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.route.destination }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Start Time:</td>
+                    <th colspan="3" style="text-align:left">{{ schedule.start_time }}</th>
+                </tr>
+     </table>
+</div>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div id="content-related">
+<table class="table-overview" style="margin-left: 100px; margin-top:1px; width:300px">
+            <caption><a href="{% url 'vehicle_index' %}" class="section">Staff Details</a></caption>
+                <tr>
+                    <td style="text-align:right; width:122px;background-color:#87ceeb;">Driver:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.driver }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Driver Mobile:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.driver.phone_number }}</th>
+                </tr>
+                 <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Driver Emergency:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.driver.emergency_number }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Driver Address:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.driver.address_line_1 }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Staff:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.staff }}</th>
+                </tr>
+                <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Staff Phone:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.staff.phone_number }}</th>
+                </tr>
+                 <tr>
+                    <td style="text-align:right;width:122px;background-color:#87ceeb;">Staff Emergency:</td>
+                    <th colspan="3" style="text-align:left">{{ vehicle.staff.emergency_number }}</th>
+                </tr>
+     </table>
+</div>
+
+{% endblock %}

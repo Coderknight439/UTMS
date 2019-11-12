@@ -3,11 +3,7 @@
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>
-    {% if not user.is_superuser %}
-    UTMS
-      {% else %}
-      UTMS Admin
-      {% endif %}
+    {{ title }}
   </title>
   {% block before_suit_styles %}{% endblock %}
   <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% endblock %}"/>
