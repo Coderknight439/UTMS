@@ -78,3 +78,9 @@ ticket_types = [
     ('4', 'Half Yearly'),
     ('5', 'Yearly'),
 ]
+ticket_status = [
+    ('0', 'Pending'),
+    ('1', 'Accepted'),
+    ('2', 'Rejected'),
+    ('3', 'Closed'),
+]
