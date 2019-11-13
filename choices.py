@@ -70,3 +70,11 @@ vehicle_status = [
     ('3', 'Broken'),
 ]
 
+ticket_types = [
+    ('0', 'Daily'),
+    ('1', 'Weekly'),
+    ('2', 'Fortnightly'),
+    ('3', 'Monthly'),
+    ('4', 'Half Yearly'),
+    ('5', 'Yearly'),
+]
