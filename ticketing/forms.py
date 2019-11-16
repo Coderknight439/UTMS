@@ -3,4 +3,6 @@ from .models import TicketSale
 
 
 class TicketForm(forms.ModelForm):
-    pass
+    class Meta:
+        model = TicketSale
+        fields = ['ticket_type', 'payment_type']

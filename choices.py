@@ -71,12 +71,12 @@ vehicle_status = [
 ]
 
 ticket_types = [
-    ('0', 'Daily'),
-    ('1', 'Weekly'),
-    ('2', 'Fortnightly'),
-    ('3', 'Monthly'),
-    ('4', 'Half Yearly'),
-    ('5', 'Yearly'),
+    ('1', 'Daily'),
+    ('7', 'Weekly'),
+    ('15', 'Fortnightly'),
+    ('30', 'Monthly'),
+    ('180', 'Half Yearly'),
+    ('365', 'Yearly'),
 ]
 ticket_status = [
     ('0', 'Pending'),
