@@ -26,7 +26,7 @@ class TicketInfo(models.Model):
                                    default=ticket_types[0][0])
     unit_price = models.DecimalField(decimal_places=2, max_digits=4, verbose_name='Unit Price')
     discount = models.IntegerField(default=0)
-    discount_purpose = models.TextField(max_length=500, verbose_name='Purpose')
+    discount_purpose = models.TextField(max_length=500, verbose_name='Purpose', blank=True)
     start_date = models.DateField(blank=True, null=True)
     Validate_for = models.IntegerField(verbose_name='Validate For')
     created_by = models.CharField(max_length=200)

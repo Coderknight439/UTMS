@@ -14,7 +14,7 @@
     <form method="post" class="post-form">{% csrf_token %}
         <div align="center">
             <table class="table-overview">
-                <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
+                <caption><a href="{% url 'ticket_index' %}" class="section">Your Tickets</a></caption>
             {{form.as_table}}
                 </table>
         </div>

@@ -30,9 +30,9 @@ def add(request, **kwargs):
             unit_price = TicketInfo.objects.get(ticket_type=ticket_type).unit_price
             discount = TicketInfo.objects.get(ticket_type=ticket_type).discount
             try:
-                ticket_number = TicketSale.objects.last()
+                ticket_number = 'T-'+str(int(TicketSale.objects.last().ticket_number[2:])+1)
             except ObjectDoesNotExist:
-                ticket_number = 101
+                ticket_number = 'T-101'
             if discount != 0:
                 total = unit_price*ticket_type - ((unit_price*ticket_type)*(discount/100))
             else:
@@ -50,9 +50,14 @@ def add(request, **kwargs):
             )
             query.save()
         if request.POST.get('submit', False):
-            return redirect('home')
+            return redirect('ticket_index')
         else:
             form = TicketForm
             return render(request, 'ticketing/add.html', {'form': form, 'title': 'Buy Ticket'})
     form = TicketForm()
     return render(request, 'ticketing/add.html', {'form': form, 'title': 'Buy Ticket'})
+
+
+def index(request, **kwargs):
+    tickets = TicketSale.objects.filter(issued_for=request.user)
+    return render(request, 'ticketing/index.html', {'tickets': tickets})
