@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from accounts.models import Student, Teacher
 from complaint.models import Complaint
+from ticketing.models import TicketSale
 from transport_schedule.models import TransportSchedule
 from vehicle.models import VehicleInfo
 
@@ -15,6 +16,7 @@ def index(request, **kwargs):
     transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now().time())[:3]
     complaint = Complaint.objects.filter(complaint_by=username)[:3]
     vehicle = VehicleInfo.objects.order_by('?')[:3]
+    tickets = TicketSale.objects.filter(issued_for=request.user.username)[:3]
     try:
         teacher_username = Teacher.objects.get(email=username)
     except ObjectDoesNotExist:
@@ -32,6 +34,7 @@ def index(request, **kwargs):
                           'schedule': transport_schedule,
                           'complaint': complaint,
                           'vehicle': vehicle,
+                          'tickets': tickets,
                       })
     else:
         user_name = student_username[0]
@@ -42,4 +45,5 @@ def index(request, **kwargs):
                           'schedule': transport_schedule,
                           'complaint': complaint,
                           'vehicle': vehicle,
+                          'tickets': tickets,
                       })

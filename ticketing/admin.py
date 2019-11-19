@@ -1,4 +1,5 @@
 import datetime
+from django.contrib import messages
 from django.contrib import admin
 from ledgers.models import Ledger
 from .models import TicketSale, TicketInfo
@@ -7,11 +8,11 @@ from .models import TicketSale, TicketInfo
 @admin.register(TicketInfo)
 class TicketInfoAdmin(admin.ModelAdmin):
 	exclude = ['created_by', 'created_date', 'updated_by', 'updated_date']
-	list_display = ('id', 'ticket_type', 'unit_price', 'discount', 'start_date', 'Validate_for', 'discount_purpose')
+	list_display = ('id', 'ticket_type', 'unit_price', 'discount', 'Validate_for', 'discount_purpose')
 	list_filter = ('ticket_type',)
-	list_editable = ('unit_price', 'discount', 'start_date', 'Validate_for', 'discount_purpose')
+	list_editable = ('unit_price', 'discount', 'Validate_for', 'discount_purpose')
 	search_fields = ['ticket_type']
-	ordering = ['start_date', '-created_date']
+	ordering = ['id']
 
 	def save_model(self, request, obj, form, change):
 		if obj.id == '':
@@ -24,15 +25,17 @@ class TicketInfoAdmin(admin.ModelAdmin):
 @admin.register(TicketSale)
 class TicketSaleAdmin(admin.ModelAdmin):
 	exclude = ['payment_date', 'applied_date', 'status', 'issued_by', 'ticket_number', 'expiry_date', 'total_amount', 'voucher_number']
-	list_display = ('ticket_number', 'ticket_type', 'issued_for', 'status', 'issued_by', 'paid_amount')
+	list_display = ('ticket_number', 'ticket_type', 'issued_for', 'status', 'total_amount', 'issued_by', 'paid_amount')
 	list_filter = ('ticket_number', 'ticket_type')
-	list_editable = ('ticket_type', 'status')
+	list_editable = ('status', 'paid_amount')
 	search_fields = ['ticket_number']
 	ordering = ['applied_date']
 
 	def get_readonly_fields(self, request, obj=None):
+		if obj and obj.status == 3:
+			self.readonly_fields+=('status',)
 		if request.user.is_staff:
-			return ['ticket_type', 'issued_for', 'applied_date', 'expiry_date', 'issued_by', 'total_amount', 'ticket_number', 'voucher_number']
+			return ['ticket_type', 'issued_for',  'issued_for', 'ticket_number']
 
 	def save_model(self, request, obj, form, change):
 		status = obj.get_status_display()

@@ -12,7 +12,7 @@
 {% block content %}
 <div id="content-main">
 <div class="module">
-          <table class="table-overview" style="width:450px;">
+          <table class="table-overview" style="width:450px;height:160px">
             <caption><a href="#" class="section">Upcoming Schedule</a></caption>
            <tr style="text-align:center; color:purple">
                <td>Vehicle</td>
@@ -33,16 +33,18 @@
                 </tr>
               {% endif %}
           </table>
-    <table class="table-overview" style="width:450px;">
+    <table class="table-overview" style="width:450px;height:160px">
             <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
            <tr style="color:purple; text-align:center;">
-               <td>Date</td>
+               <td>Sl</td>
+               <th>Date</th>
                <th style="text-align:center">Accepted</th>
                <th style="text-align:center">Status</th>
            </tr>
               {% if complaint %}
               {% for row in complaint %}
               <tr style="text-align:center">
+              <td>{{ forloop.counter }}</td>
               <td>{{ row.complaint_date.date }}</td>
                   {% if row.accepted_by %}
               <td>{{ row.accepted_by }}</td>
@@ -67,28 +69,32 @@
 
 {% block sidebar %}
 <div id="content-related">
-    <table class="table-overview" style="margin-left:40px;width:450px;">
-            <caption><a href="#" class="section">Ticketing</a></caption>
+    <table class="table-overview" style="margin-left:40px;width:450px;height:160px">
+            <caption><a href="{% url 'ticket_index' %}" class="section">Ticketing</a></caption>
            <tr style="text-align:center; color:purple">
                <td>Ticket No.</td>
-               <th style="text-align:center">Issued On</th>
-               <th style="text-align:center">Expired On</th>
+               <th style="text-align:center">Type</th>
+               <th style="text-align:center">Status</th>
+               <th style="text-align:center">Total</th>
+               <th style="text-align:center">Due</th>
            </tr>
-              {% if schedule %}
-              {% for row in schedule %}
+              {% if tickets %}
+              {% for row in tickets %}
               <tr style="text-align:center">
-              <td>{{ row.vehicle_route }}</td>
-              <td>{{ row.vehicle_route.route.display_text }}</td>
-              <td>{{ row.start_time }}</td>
+              <td>{{ row.ticket_number }}</td>
+              <td>{{ row.get_ticket_type_display }}</td>
+              <td>{{ row.get_status_display }}</td>
+              <td>{{ row.total_amount }}</td>
+              <td>{{ row.due }}</td>
               </tr>
               {% endfor %}
               {% else %}
                 <tr>
-                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> No upcoming schedule for today</th>
+                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> You didn't buy any ticket yet</th>
                 </tr>
               {% endif %}
           </table>
-     <table class="table-overview" style="margin-left:40px; margin-top:2px; width:450px;">
+     <table class="table-overview" style="margin-left:40px; margin-top:2px; width:450px;height:160px">
             <caption><a href="{% url 'vehicle_index' %}" class="section">Vehicle Info</a></caption>
            <tr style="text-align:center; color:purple">
                <td>Vehicle</td>
