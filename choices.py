@@ -84,3 +84,7 @@ ticket_status = [
     ('2', 'Rejected'),
     ('3', 'Closed'),
 ]
+payment_types = [
+    ('0', 'Cash'),
+
+]

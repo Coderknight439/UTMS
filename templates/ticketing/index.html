@@ -11,37 +11,39 @@
 
 {% block content %}
 <div id="content-main">
-    <table class="table-overview">
-            <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
-           <tr style="color:purple">
-               <td >Vehicle Number</td>
-               <td>Complaint Type</td>
-               <td>Incident Date</td>
-               <td>Complaint Date</td>
-               <td>Accepted By</td>
+    <table class="table-overview" style="width:960px; margin-left: 60px;">
+            <caption><a href="{% url 'ticket_index' %}" class="section">Your Tickets</a></caption>
+           <tr style="color:purple; text-align: center">
+               <td >Ticket Number</td>
+               <td>Ticket Type</td>
                <td>Status</td>
+               <td>Expiry Date</td>
+               <td>Unit Price</td>
+               <td>Total</td>
+               <td>Due</td>
            </tr>
-              {% if complaint %}
-              {% for row in complaint %}
-              <tr>
-              <td>{{ row.bus_number }}</td>
-              <td>{{ row.get_complaint_type_display }}</td>
-              <td>{{ row.incident_date }}</td>
-              <td>{{ row.complaint_date }}</td>
-              <td>{{ row.accepted_by }}</td>
+              {% if tickets %}
+              {% for row in tickets %}
+              <tr style="text-align: center">
+              <td>{{ row.ticket_number }}</td>
+              <td>{{ row.get_ticket_type_display }}</td>
               <td>{{ row.get_status_display }}</td>
+              <td>{{ row.expiry_date }}</td>
+              <td>{{ row.unit_price }}</td>
+              <td>{{ row.total_amount }}</td>
+              <td>{{ row.due }}</td>
               </tr>
               {% endfor %}
               {% else %}
                 <tr>
                 <th colspan="6" style="text-align:center">
                     <p>Sorry! &#x1F60C;</p>
-                    You didn't file any complaint yet
+                    You didn't buy any ticket yet
                 </th>
                 </tr>
               {% endif %}
           </table>
-    <a type="submit" href="{% url 'ticket_add' %}" class="btn btn-high btn-success" style="width:127px" >Add</a>
+    <a type="submit" href="{% url 'ticket_add' %}" class="btn btn-high btn-success" style="width:127px; margin-left: 60px;" >Add</a>
         </div>
 {% endblock %}
 

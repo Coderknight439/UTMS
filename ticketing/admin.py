@@ -37,8 +37,9 @@ class TicketSaleAdmin(admin.ModelAdmin):
 	def save_model(self, request, obj, form, change):
 		status = obj.get_status_display()
 		if status == 'Closed':
-			obj.issued_by = str(request.user)
+			obj.issued_by = str(request.user.username)
 			obj.payment_date = datetime.datetime.today()
+			obj.expiry_date = obj.payment_date + datetime.timedelta(days = int(obj.ticket_type))
 			if obj.voucher_number == '':
 				obj.voucher_number = 'SI-'+str(obj.ticket_number[2:])
 				ledger = Ledger.objects.create(
