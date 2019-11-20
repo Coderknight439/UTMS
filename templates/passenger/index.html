@@ -70,13 +70,14 @@
 {% block sidebar %}
 <div id="content-related">
     <table class="table-overview" style="margin-left:40px;width:450px;height:160px">
-            <caption><a href="{% url 'ticket_index' %}" class="section">Ticketing</a></caption>
+            <caption><a href="{% url 'ticket_index' %}" class="section">Your Tickets</a></caption>
            <tr style="text-align:center; color:purple">
                <td>Ticket No.</td>
                <th style="text-align:center">Type</th>
                <th style="text-align:center">Status</th>
                <th style="text-align:center">Total</th>
                <th style="text-align:center">Due</th>
+               <th style="text-align:center">Action</th>
            </tr>
               {% if tickets %}
               {% for row in tickets %}
@@ -86,6 +87,11 @@
               <td>{{ row.get_status_display }}</td>
               <td>{{ row.total_amount }}</td>
               <td>{{ row.due }}</td>
+                  {% if row.get_status_display == 'Closed' %}
+              <td><a href="{% url 'sale_invoice' row.ticket_number %}"><i class="fa fa-print" style="color: #6610f2"></i></a></td>
+                  {% else %}
+               <td><a href="#"><i class="fa fa-print" style="color: #6610f2"></i></a></td>
+                  {% endif %}
               </tr>
               {% endfor %}
               {% else %}

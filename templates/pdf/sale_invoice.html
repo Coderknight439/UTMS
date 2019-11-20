@@ -34,21 +34,26 @@
 		<div id="customer">
 
             <h2 id="customer-title">
-				Invoice For: 1930101
+				Invoice For: {{ tickets.issued_for }}
 			</h2>
 
             <table class="table" style="border:0.1px solid black; margin-bottom: 30px;">
                 <tr style="height: 20px;">
                     <td class="meta-head" style="text-align: left; margin-left: 5px">Invoice</td>
-                    <td style="margin-left: 5px">000123</td>
+                    <td style="margin-left: 5px">{{ tickets.invoice }}</td>
                 </tr>
                 <tr style="height: 20px;">
-                    <td class="meta-head" style="text-align: left; margin-left: 5px">Date</td>
-                    <td style="margin-left: 5px">December 15, 2009</td>
+                    <td class="meta-head" style="text-align: left; margin-left: 5px">Issued Date</td>
+                    <td style="margin-left: 5px">{{ tickets.payment_date }}</td>
                 </tr>
+				<tr style="height: 20px;">
+                    <td class="meta-head" style="text-align: left; margin-left: 5px">Issued By</td>
+                    <td style="margin-left: 5px">{{ tickets.issued_by }}</td>
+                </tr>
+
                 <tr style="height: 20px;">
                     <td class="meta-head" style="text-align: left;margin-left: 5px">Amount Due</td>
-                    <td style="margin-left: 5px"><div class="due">$875.00</div></td>
+                    <td style="margin-left: 5px"><div class="due">{{ tickets.due }}</div></td>
                 </tr>
 
             </table>
@@ -61,51 +66,30 @@
 		      <th>Item</th>
 		      <th>Description</th>
 		      <th>Unit Cost</th>
-		      <th>Quantity</th>
 		      <th>Price</th>
 		  </tr>
 
 		  <tr class="item-row" style="height: 60px; margin-left: 5px">
-		      <td class="item-name">Web Update/td>
-		      <td class="description">Monthly web updates for http://widgetcorp.com (Nov. 1 - Nov. 30, 2009)</td>
-		      <td>$650.00</td>
-		      <td>1</td>
-		      <td>$650.00</td>
-		  </tr>
-
-		  <tr class="item-row" style="height: 60px; margin-left: 5px">
-		      <td class="item-name">SSL Renewals</td>
-
-		      <td class="description">Yearly renewals of SSL certificates on main domain and several subdomains</td>
-		      <td>$75.00</td>
-		      <td>3</td>
-		      <td>$225.00</td>
-		  </tr>
-
-		  <tr style="height: 25px; margin-left: 5px">
-		      <td rowspan="4" colspan="2" class="blank"> </td>
-		      <td colspan="2" class="total-line">Subtotal</td>
-		      <td class="total-value"><div id="subtotal">$875.00</div></td>
-		  </tr>
-		  <tr style="height: 25px; margin-left: 5px">
-		      <td colspan="2" class="total-line">Total</td>
-		      <td class="total-value"><div id="total">$875.00</div></td>
+		      <td class="item-name">{{ tickets.ticket_number }}</td>
+		      <td class="description">{{ tickets.get_ticket_type_display }}</td>
+		      <td>{{ tickets.unit_price }}</td>
+		      <td>{{ tickets.total_amount }}</td>
 		  </tr>
 		  <tr style="height: 25px; margin-left: 5px">
 		      <td colspan="2" class="total-line">Amount Paid</td>
 
-		      <td class="total-value"><textarea id="paid">$0.00</textarea></td>
+		      <td class="total-value"><textarea id="paid">{{ tickets.paid_amount }}</textarea></td>
 		  </tr>
 		  <tr style="height: 25px; margin-left: 5px">
 		      <td colspan="2" class="total-line balance">Balance Due</td>
-		      <td class="total-value balance"><div class="due">$875.00</div></td>
+		      <td class="total-value balance"><div class="due">{{ tickets.due }}</div></td>
 		  </tr>
 
 		</table>
 
 		<div id="terms">
-		  <h5>Terms</h5>
-		  <textarea>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</textarea>
+		  <h5>Note</h5>
+		  <textarea>This is an auto generated invoice by {{ university }} UTMS</textarea>
 		</div>
 
 	</div>

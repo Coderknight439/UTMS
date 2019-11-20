@@ -1,5 +1,5 @@
 import datetime
-
+from UTMS.settings import client
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,10 +11,14 @@ from .models import TicketSale, TicketInfo
 
 class SaleInvoice(View):
 
-    def get(self, request):
+    def get(self, request, ticket_number):
+        tickets = TicketSale.objects.get(ticket_number = ticket_number)
+        prev = tickets.ticket_number[2:]
+        # import pdb; pdb.set_trace()
+        tickets.invoice = 'PI-'+prev
         params = {
-            'today': timezone.now(),
-            'sales': 'Sales',
+            'university': client,
+            'tickets': tickets,
             'request': request
         }
         return Render.render('pdf/sale_invoice.html', params)
