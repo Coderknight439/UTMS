@@ -1,10 +1,19 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
+
 from choices import ticket_types, ticket_status, payment_types
+from vehicle.models import VehicleInfo
+
+
+def vehicles():
+    vehicle_info = VehicleInfo.objects.filter(Q(is_scheduled=True) & Q(status__in=[0, 2]))
+    return {'pk__in': vehicle_info}
 
 
 class TicketSale(models.Model):
     ticket_type = models.CharField(max_length=200, choices=ticket_types, verbose_name='Type', default=ticket_types[0][0])
+    vehicle_id = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE, limit_choices_to=vehicles, null=True, blank=True)
     issued_for = models.CharField(max_length = 200)
     status = models.CharField(max_length=200, choices=ticket_status, verbose_name='Status', default=ticket_status[0][0])
     applied_date = models.DateField(auto_now_add=True)
@@ -26,17 +35,22 @@ class TicketSale(models.Model):
 
     @property
     def unit_price(self):
-        return TicketInfo.objects.get(ticket_type = self.ticket_type).unit_price
+        return TicketInfo.objects.get(ticket_type=self.ticket_type).unit_price
+
+    @property
+    def discount(self):
+        unit_price = self.unit_price
+        actual_amount = int(self.ticket_type)*unit_price
+        discount_amount = actual_amount-self.total_amount
+        if discount_amount > 0:
+            return discount_amount
+        return None
 
 
 class TicketInfo(models.Model):
     ticket_type = models.CharField(max_length=200, choices=ticket_types, verbose_name='Type',
                                    default=ticket_types[0][0])
     unit_price = models.DecimalField(decimal_places=2, max_digits=4, verbose_name='Unit Price')
-    discount = models.IntegerField(default=0, blank = True)
-    discount_purpose = models.TextField(max_length=500, verbose_name='Purpose', blank=True)
-    start_date = models.DateField(blank=True, null=True)
-    Validate_for = models.IntegerField(verbose_name='Validate For', blank = True, default = 0)
     created_by = models.CharField(max_length=200)
     created_date = models.DateField(auto_now_add=True)
     updated_by = models.CharField(max_length=200)
@@ -44,4 +58,15 @@ class TicketInfo(models.Model):
 
     class Meta:
         db_table = 'ticket_info'
+
+
+class TicketDiscount(models.Model):
+    discount = models.IntegerField(default=0, blank=True)
+    discount_purpose = models.TextField(max_length=500, verbose_name='Purpose', blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    # status = models.CharField(max_length=200, choices=discount_status, default=discount_status[0][0])
+
+    class Meta:
+        db_table = 'discounts'
 

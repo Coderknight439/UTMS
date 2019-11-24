@@ -14,7 +14,7 @@
 <div class="module">
           <table class="table-overview" style="width:450px;height:160px">
             <caption><a href="#" class="section">Upcoming Schedule</a></caption>
-           <tr style="text-align:center; color:purple">
+           <tr style="text-align:center; color:purple;  height:30px">
                <td>Vehicle</td>
                <th style="text-align:center">Route</th>
                <th style="text-align:center">Start Time</th>
@@ -35,13 +35,15 @@
           </table>
     <table class="table-overview" style="width:450px;height:160px">
             <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
-           <tr style="color:purple; text-align:center;">
+           <tr style="color:purple; text-align:center; height:30px">
                <td>Sl</td>
-               <th>Date</th>
+               <th style="text-align:center">Date</th>
                <th style="text-align:center">Accepted</th>
                <th style="text-align:center">Status</th>
+               <th style="text-align:center">Action</th>
            </tr>
               {% if complaint %}
+
               {% for row in complaint %}
               <tr style="text-align:center">
               <td>{{ forloop.counter }}</td>
@@ -52,6 +54,7 @@
                   <td>None</td>
                   {% endif %}
               <td>{{ row.get_status_display }}</td>
+              <td ><a href="{% url 'complaint_edit' row.id %}" ><i class="fa fa-edit" style="color: #6610f2"></i></a></td>
               </tr>
               {% endfor %}
               {% else %}
@@ -71,21 +74,23 @@
 <div id="content-related">
     <table class="table-overview" style="margin-left:40px;width:450px;height:160px">
             <caption><a href="{% url 'ticket_index' %}" class="section">Your Tickets</a></caption>
-           <tr style="text-align:center; color:purple">
+           <tr style="text-align:center; color:purple;  height:30px">
                <td>Ticket No.</td>
                <th style="text-align:center">Type</th>
                <th style="text-align:center">Status</th>
                <th style="text-align:center">Total</th>
+               <!--<th style="text-align:center">Discount</th>-->
                <th style="text-align:center">Due</th>
                <th style="text-align:center">Action</th>
            </tr>
               {% if tickets %}
               {% for row in tickets %}
               <tr style="text-align:center">
-              <td>{{ row.ticket_number }}</td>
+                  <td><a href="{% url 'ticket_index' %}">{{ row.ticket_number }}</a></td>
               <td>{{ row.get_ticket_type_display }}</td>
               <td>{{ row.get_status_display }}</td>
               <td>{{ row.total_amount }}</td>
+              <!--<td>{{ row.discount }}</td>-->
               <td>{{ row.due }}</td>
                   {% if row.get_status_display == 'Closed' %}
               <td><a href="{% url 'sale_invoice' row.ticket_number %}"><i class="fa fa-print" style="color: #6610f2"></i></a></td>
@@ -96,13 +101,13 @@
               {% endfor %}
               {% else %}
                 <tr>
-                <th colspan="4" style="text-align:center"> <p>Sorry! &#x1F60C;</p> You didn't buy any ticket yet</th>
+                <th colspan="6" style="text-align:center"> <p>Sorry! &#x1F60C;</p> You didn't buy any ticket yet</th>
                 </tr>
               {% endif %}
           </table>
      <table class="table-overview" style="margin-left:40px; margin-top:2px; width:450px;height:160px">
             <caption><a href="{% url 'vehicle_index' %}" class="section">Vehicle Info</a></caption>
-           <tr style="text-align:center; color:purple">
+           <tr style="text-align:center; color:purple;  height:30px">
                <td>Vehicle</td>
                <th style="text-align:center">Route</th>
                <th style="text-align:center">Driver</th>
@@ -121,10 +126,12 @@
                 <tr>
                 <th colspan="4" style="text-align:center">
                     <p>Sorry! &#x1F60C;</p>
-                    You didn't file any complaint yet
+                    No Vehicle Information to show
                 </th>
                 </tr>
               {% endif %}
           </table>
+    {% include 'search_forms/date_range_search.html' %}
+    <button data-toggle="modal" data-target="#test">Test</button>
 </div>
 {% endblock %}

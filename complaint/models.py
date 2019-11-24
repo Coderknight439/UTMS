@@ -1,6 +1,6 @@
 import datetime
 from django.db import models
-from choices import complaint_type, complaint_status
+from choices import complaint_type, complaint_status, complaint_feedback
 from vehicle.models import VehicleInfo
 
 
@@ -14,6 +14,7 @@ class Complaint(models.Model):
     status = models.CharField(max_length=200, choices=complaint_status, default=complaint_status[0][0])
     bus_number = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE, default = '', verbose_name='Vehicle')
     description = models.TextField(max_length=500, blank=True)
+    feedback = models.CharField(max_length=200, choices=complaint_feedback, blank=True, null=True, default='')
 
     def __str__(self):
         return "{}".format(self.complaint_type)

@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
-from .forms import ComplaintForm
-
+from django.shortcuts import redirect, render, get_object_or_404
+from .forms import ComplaintForm, ComplaintFeedbackForm
+from django.contrib import messages
 from .models import Complaint
 
 
@@ -33,5 +33,19 @@ def add(request, **kwargs):
 		else:
 			form = ComplaintForm
 			return render(request, 'complaint/add.html', {'form': form, 'title': 'Complaint Add'})
-	form = ComplaintForm()
+	form = ComplaintForm
 	return render(request, 'complaint/add.html', {'form': form, 'title': 'Complaint Add'})
+
+
+def edit(request, complaint_id, **kwargs):
+	complaint = get_object_or_404(Complaint, pk=complaint_id)
+	if request.method == 'POST':
+		form = ComplaintFeedbackForm(request.POST, instance=complaint)
+		if form.is_valid():
+			complaint = form.save()
+			messages.success(request, "Your Feedback Updated Successfully. Thank you!")
+			return redirect('home')
+	else:
+		form = ComplaintFeedbackForm(instance=complaint)
+	# import pdb; pdb.set_trace()
+	return render(request, 'search_forms/complaint_feedback.html', {'form': form})

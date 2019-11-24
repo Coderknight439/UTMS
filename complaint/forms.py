@@ -9,3 +9,9 @@ class ComplaintForm(forms.ModelForm):
 		widgets = {
 			'incident_date': forms.DateInput(attrs={'type': 'date'})
 		}
+
+
+class ComplaintFeedbackForm(forms.ModelForm):
+	class Meta:
+		model = Complaint
+		fields = ['feedback', 'description']

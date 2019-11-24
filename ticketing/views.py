@@ -1,4 +1,7 @@
 import datetime
+
+from django.contrib import messages
+
 from UTMS.settings import client
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import View
@@ -25,22 +28,22 @@ class SaleInvoice(View):
 
 
 def add(request, **kwargs):
+    # import pdb; pdb.set_trace()
     if request.method == 'POST':
         form = TicketForm(request.POST)
         if form.is_valid():
             ticket_type = request.POST['ticket_type']
             payment_type = request.POST['payment_type']
             unit_price = TicketInfo.objects.get(ticket_type=ticket_type).unit_price
-            discount = TicketInfo.objects.get(ticket_type=ticket_type).discount
             tick_num = TicketSale.objects.last()
             if tick_num:
                 ticket_number = 'T-'+str(int(tick_num.ticket_number[2:])+1)
             else:
                 ticket_number = 'T-101'
-            if discount != 0:
-                total = float(unit_price)*int(ticket_type) - ((float(unit_price)*int(ticket_type))*(discount/100))
-            else:
-                total = float(unit_price)*int(ticket_type)
+            # if discount != 0:
+            #     total = float(unit_price)*int(ticket_type) - ((float(unit_price)*int(ticket_type))*(discount/100))
+            # else:
+            #     total = float(unit_price)*int(ticket_type)
             query = TicketSale.objects.create(
                 ticket_type=ticket_type,
                 payment_type=payment_type,
@@ -48,7 +51,7 @@ def add(request, **kwargs):
                 applied_date=datetime.datetime.now(),
                 # expiry_date=expiry_date,
                 issued_by='',
-                total_amount=total,
+                total_amount=float(unit_price)*int(ticket_type),
                 ticket_number=ticket_number,
                 voucher_number=''
             )
@@ -57,9 +60,11 @@ def add(request, **kwargs):
         # import pdb;
         # pdb.set_trace()
         if request.POST.get('submit', False):
+            messages.success(request, 'Thank you for using UTMS. You will be notified your status soon!')
             return redirect('ticket_index')
         else:
             form = TicketForm
+            messages.success(request, 'Thank you for using UTMS. You will be notified your status soon!')
             return render(request, 'ticketing/add.html', {'form': form, 'title': 'Buy Ticket'})
     form = TicketForm()
     return render(request, 'ticketing/add.html', {'form': form, 'title': 'Buy Ticket'})

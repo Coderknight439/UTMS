@@ -20,6 +20,7 @@
                <td>Expiry Date</td>
                <td>Unit Price</td>
                <td>Total</td>
+               <td>Discount</td>
                <td>Due</td>
            </tr>
               {% if tickets %}
@@ -31,6 +32,7 @@
               <td>{{ row.expiry_date }}</td>
               <td>{{ row.unit_price }}</td>
               <td>{{ row.total_amount }}</td>
+              <td>{{ row.discount }}</td>
               <td>{{ row.due }}</td>
               </tr>
               {% endfor %}

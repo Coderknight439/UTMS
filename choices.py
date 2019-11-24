@@ -86,5 +86,13 @@ ticket_status = [
 ]
 payment_types = [
     ('0', 'Cash'),
+]
 
+complaint_feedback = [
+    ('0', 'Excellent'),
+    ('1', 'Satisfactory'),
+    ('2', 'Above Average'),
+    ('3', 'Average'),
+    ('4', 'Below Average'),
+    ('5', 'Poor'),
 ]
