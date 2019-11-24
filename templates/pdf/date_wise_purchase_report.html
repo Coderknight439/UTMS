@@ -31,24 +31,22 @@
 		<div id="customer">
 
             <h2 id="report_title" align="center">
-				Passenger Wise Monthly Ticket Sale Report
+				Date Wise Purchase Report
 			</h2>
 
             <table class="table" style="border:0.1px solid black; margin-bottom: 30px;">
                 <tr style="height:30px; text-align:center;">
-					<td><b>Passenger</b></td>
-					<td><b>Ticket Number</b></td>
-					<td><b>Total Amount</b></td>
-					<td><b>Paid Amount</b></td>
-					<td><b>Due Amount</b></td>
+					<td><b>Date</b></td>
+					<td><b>Vendor</b></td>
+					<td><b>Products</b></td>
+					<td><b>Amount</b></td>
 				</tr>
 				{% for row in query %}
 				<tr style="height:20px; text-align:center">
-					<td>{{ row.issued_for }}</td>
-					<td>{{ row.ticket_number }}</td>
-					<td>{{ row.total_amount }}</td>
-					<td>{{ row.paid_amount }}</td>
-					<td>{{ row.due }}</td>
+					<td>{{ row.entry_date }}</td>
+					<td>{{ row.vendor }}</td>
+					<td>{{ row.products }}</td>
+					<td>{{ row.amount }}</td>
 				</tr>
 				{% endfor %}
             </table>

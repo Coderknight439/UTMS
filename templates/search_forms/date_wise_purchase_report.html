@@ -1,16 +1,16 @@
 
 <!--<button class="btn btn-success" data-toggle="modal" data-target="#test">Open Popup</button>-->
-    <div id="test" class="modal fade" role="dialog">
+    <div id="date_wise_purchase_report" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <p>XYZ UTMS</p>
+                   <h2>Date Wise Purchase Report</h2>
                 </div>
                 <div class="modal-body">
-                     <form method="GET" class="post-form" action="{% url 'passenger_wise_ticket_details' %}">{% csrf_token %}
-                <div align="center">
-                   <input type="date" name="from_date">
-                   <input type="date" name="to_date">
+                     <form method="GET" class="post-form" action="{% url 'date_wise_purchase_report' %}">{% csrf_token %}
+                <div align="center" style="text-color:blue">
+                   <strong style="margin-right:3px;">From:</strong> <input type="date" name="from_date" style="width:130px">
+                   <strong style="margin-left:3px;">To: </strong><input type="date" name="to_date" style="width:130px;">
                 </div>
                 <br>
                 <div align="center">
@@ -19,7 +19,8 @@
             </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
                 </div>
 
             </div>

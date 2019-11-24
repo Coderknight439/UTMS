@@ -13,73 +13,6 @@
   <link rel="stylesheet" type="text/css" href="../../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
   <link rel="stylesheet" type="text/css" href="../../static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
   <script type="text/javascript" src="../../static/vendor/jquery/jquery-3.2.1.min.js">
-  <!--{% block extrastyle %}-->
-    <!--<style>-->
-  <!--:root {-->
-    <!--&#45;&#45;primary-color: #151B54;-->
-    <!--&#45;&#45;primary-color-faded: #E42217;-->
-    <!--&#45;&#45;secondary-color: white;-->
-  <!--}-->
-  <!--::selection {-->
-    <!--background: var(&#45;&#45;secondary-color);-->
-    <!--color:var(&#45;&#45;primary-color);-->
-    <!--opacity:1-->
-  <!--}-->
-
-  <!--::-moz-selection {-->
-    <!--background: var(&#45;&#45;secondary-color);-->
-    <!--color:;-->
-    <!--opacity:1-->
-  <!--}-->
-
-  <!--body {-->
-    <!--font-family:-->
-          <!-- -apple-system,-->
-          <!--BlinkMacSystemFont,-->
-          <!--'Segoe UI',-->
-          <!--Roboto,-->
-          <!--Helvetica,-->
-          <!--Arial,-->
-          <!--sans-serif,-->
-          <!--'Apple Color Emoji',-->
-          <!--'Segoe UI Emoji',-->
-          <!--'Segoe UI Symbol';-->
-  <!--}-->
-  <!--#header {-->
-    <!--background: var(&#45;&#45;primary-color);-->
-  <!--}-->
-  <!--.module , .module caption, .inline-group {-->
-    <!--background-color: #151B54;-->
-  <!--}-->
-  <!--div.breadcrumbs {-->
-    <!--background: #151B54;-->
-  <!--}-->
-  <!--a:link, a:visited {-->
-    <!--color:#E42217;-->
-  <!--}-->
-  <!--.selector-chosen h{-->
-    <!--background: var(&#45;&#45;primary-color-faded) !important;-->
-  <!--}-->
-  <!--h2, h4{-->
-  <!--color: white;-->
-  <!--}-->
-  <!--.button, input[type=submit], input[type=button], .submit-row input, a.button {-->
-    <!--background: var(&#45;&#45;primary-color-faded);-->
-  <!--}-->
-  <!--.button.default, input[type=submit].default, .submit-row input.default {-->
-    <!--background: var(&#45;&#45;primary-color);-->
-  <!--}-->
-  <!--.button:active, input[type=submit]:active, input[type=button]:active, .button:focus, input[type=submit]:focus, input[type=button]:focus, .button:hover, input[type=submit]:hover, input[type=button]:hover {-->
-    <!--background: var(&#45;&#45;primary-color-faded);-->
-    <!--opacity: 0.8;-->
-  <!--}-->
-  <!--.button.default:active, input[type=submit].default:active, .button.default:focus, input[type=submit].default:focus, .button.default:hover, input[type=submit].default:hover {-->
-    <!--background: var(&#45;&#45;primary-color);-->
-    <!--opacity: 0.8;-->
-  <!--}-->
-
-<!--</style>-->
-    <!--{% endblock %}-->
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
   <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
   {% block suit_jquery %}{% if '1.9'|django_version_gte %}<script src="{% static 'suit/js/jquery-2.2.4.min.js' %}">{% else %}<script src="{% static 'suit/js/jquery-1.8.3.min.js' %}">{% endif %}</script>{% endblock %}
@@ -95,7 +28,8 @@
 {% load i18n %}
 
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
-
+    {% include 'search_forms/passenger_wise_ticket_details.html' %}
+    {% include 'search_forms/date_wise_purchase_report.html' %}
 <!-- Sticky footer wrap -->
 <div id="wrap">
 
@@ -290,7 +224,8 @@
 
   <script src="{% static 'suit/js/suit.js' %}">
   </script>
-  {% block extrajs %}{% endblock %}
+  {% block extrajs %}
+{% endblock %}
 
 </body>
 </html>
