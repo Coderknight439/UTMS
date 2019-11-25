@@ -48,4 +48,4 @@ def edit(request, complaint_id, **kwargs):
 	else:
 		form = ComplaintFeedbackForm(instance=complaint)
 	# import pdb; pdb.set_trace()
-	return render(request, 'search_forms/complaint_feedback.html', {'form': form})
+	return render(request, 'complaint/complaint_edit.html', {'form': form })

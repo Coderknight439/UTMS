@@ -7,5 +7,8 @@ class Ledger(models.Model):
 	entry_date = models.DateField(auto_now_add=True)
 	amount = models.DecimalField(max_digits=50, decimal_places=4)
 
+	def __str__(self):
+		return "{}".format(self.voucher_id)
+
 	class Meta:
 		db_table = 'ledgers'
