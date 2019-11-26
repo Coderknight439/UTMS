@@ -1,0 +1,27 @@
+
+<!--<button class="btn btn-success" data-toggle="modal" data-target="#test">Open Popup</button>-->
+    <div id="vehicle_wise_purchase_report" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 align="center">Vehicle Wise Purchase Report</h2>
+                </div>
+                <div class="modal-body">
+                     <form method="GET" class="post-form" action="{% url 'vehicle_wise_purchase_report' %}">{% csrf_token %}
+                        <table class="table-overview">
+                        {{vehicle_form.as_table}}
+                            </table>
+                <div align="center">
+                    <input type="submit" name="submit" class="btn btn-high btn-success" style="width:127px" value="Preview">
+                </div>
+            </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
