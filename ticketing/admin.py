@@ -27,7 +27,7 @@ class TicketInfoAdmin(admin.ModelAdmin):
 @admin.register(TicketSale)
 class TicketSaleAdmin(admin.ModelAdmin):
 	exclude = ['payment_date', 'applied_date', 'status', 'issued_by', 'ticket_number', 'expiry_date', 'total_amount', 'voucher_number', 'issued_for']
-	list_display = ('ticket_number', 'ticket_type', 'issued_for', 'status', 'total_amount', 'issued_by', 'paid_amount')
+	list_display = ('ticket_number', 'vehicle_id', 'ticket_type', 'issued_for', 'status', 'total_amount', 'issued_by', 'paid_amount', 'payment_date')
 	list_filter = ('ticket_number', 'ticket_type')
 	list_editable = ('status', 'paid_amount')
 	search_fields = ['ticket_number']
