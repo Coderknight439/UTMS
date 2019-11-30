@@ -1,8 +1,9 @@
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Count
 import datetime
 from render import Render
 from django.views.generic import View
 from UTMS.settings import client
+from route.models import RouteInfo
 from ticketing.models import TicketSale
 from purchase_order.models import PurchaseInvoice, PurchaseProduct
 from vehicle.models import VehicleInfo
@@ -86,8 +87,16 @@ class PassengerWiseTicketDetails(View):
 
 class MajorRouteForecast(View):
 	def get(self, request, **kwargs):
-		pass
+		to_date = request.GET.get('to_date') if request.GET.get('to_date') else datetime.datetime.today().date()
+		from_date = request.GET.get('from_date') if request.GET.get('from_date') else to_date.replace(day = 1)
+		query = TicketSale.objects.filter(applied_date__range = (from_date, to_date)).values('vehicle_id__route').annotate(
+			total_ticket = Count('id'),
+			total_vehicle = Count('vehicle_id')
+		)
+		for row in query:
+			row['vehicle_id__route'] = RouteInfo.objects.get(pk = row['vehicle_id__route']).display_text
 
+		return Render.render('pdf/major_route_forecast.html', {'query': query, 'university': client})
 
 class VehicleWiseComplaintAnalysisReport(View):
 	def get(self, request, **kwargs):
