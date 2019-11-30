@@ -1,12 +1,12 @@
 import datetime
-
+from django.db.models import Count
 from django.contrib import messages
-
+from django.http import JsonResponse
 from UTMS.settings import client
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
+from django.core import serializers
 from render import Render
 from .forms import TicketForm
 from .models import TicketSale, TicketInfo
@@ -73,3 +73,11 @@ def add(request, **kwargs):
 def index(request, **kwargs):
     tickets = TicketSale.objects.filter(issued_for=request.user.username)
     return render(request, 'ticketing/index.html', {'tickets': tickets})
+
+
+def ticket_sale_data(request, **kwargs):
+    data = TicketSale.objects.values('payment_date').annotate(
+        tickets=Count('id')
+    )
+    # data_serialized = serializers.serialize('json', data)
+    return JsonResponse(list(data), safe=False)

@@ -40,7 +40,6 @@ class PurchaseInvoice(models.Model):
 		ledger.save()
 
 
-
 class PurchaseProduct(models.Model):
 	product_name = models.CharField(max_length=256, verbose_name='Product')
 	purchase_id = models.ForeignKey(PurchaseInvoice, to_field='purchase_id', on_delete=models.CASCADE)

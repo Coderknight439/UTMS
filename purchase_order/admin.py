@@ -16,7 +16,6 @@ class PurchaseInvoiceAdmin(admin.ModelAdmin):
         ProductInline
     ]
 
-
     def save_model(self, request, obj, form, change):
         obj.amount = 0
         obj.purchase_id = 'PI-'+obj.purchase_id

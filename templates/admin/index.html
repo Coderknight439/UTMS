@@ -12,80 +12,109 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block content %}
-  <div id="content-main">
-    {% if app_list %}
-      {% for app in app_list %}
-        <div class="module">
-          <table class="table-overview applist" summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}">
-            <caption><a href="{{ app.app_url }}" class="section">{% trans app.name %}</a></caption>
-            {% for model in app.models %}
-              <tr>
-                <th scope="row">{{ model.name }}</th>
-                {% if model.admin_url %}
-                  <td style="background:#151B54;">
-                    <a href="{{ model.admin_url }}" class="changelink icon">{% trans 'Change' %}</a>
-                  </td>
-                {% else %}
-                  <td>&nbsp;</td>
-                {% endif %}
+<div class="container" style="margin-right:101px; margin-top:-42px;">
+          <!--small cards-->
+    <div class="row">
+            <div class="col-md-3">
+        		<div class="card">
+                    <div class="card-content" style="width:280px;">
+                    	<div class="card-header-blue">
+                           <h3 class="card-heading" align="center">Sale</h3>
+                       	</div>
+                       	<div class="card-body">
+                     	  <p class="card-p">
+                                Hello There!
 
-                {% if model.add_url %}
-                  <td style="background:#151B54;"><a href="{{ model.add_url }}" class="addlink icon"><i
-                          class="icon-plus-sign icon-alpha75"></i>{% trans 'Add' %}
-                  </a></td>
-                {% else %}
-                  <td>&nbsp;</td>
-                {% endif %}
-              </tr>
-            {% endfor %}
-          </table>
+                            </p>
+                     	</div>
+
+                     	<nav class="nav-tabs">
+                     		<ul class="nav nav-pills pull-left">
+                                <li class="card-action"><a href="#">View More</a></li>
+                            </ul>
+
+                     	</nav>
+
+                    </div>
+                </div>
+           	</div>
+        <div class="col-md-3">
+        	<div class="card">
+                    <div class="card-content" style="width:280px">
+                    	<div class="card-header-orange">
+                           <h3 class="card-heading" align="center">Major Routes</h3>
+                       	</div>
+                       	<div class="card-body">
+                     	  <p class="card-p">
+                                Hi There!
+
+                            </p>
+                     	</div>
+                     	<nav class="nav-tabs">
+                     		<ul class="nav nav-pills pull-left">
+                                <li><a class="card-action-orange" href="#">View More</a></li>
+                            </ul>
+
+                     	</nav>
+
+                    </div>
+                </div>
         </div>
-      {% endfor %}
-    {% else %}
-      <p>{% trans "You don't have permission to edit anything." %}</p>
-    {% endif %}
-  </div>
+        <div class="col-md-3">
+        	<div class="card">
+                    <div class="card-content" style="width:280px">
+                    	<div class="card-header-grey">
+                           <h3 class="card-heading" align="center">Complaint</h3>
+                       	</div>
+                       	<div class="card-body">
+                     	  <p class="card-p">
+                               Hi Buddy
+
+                            </p>
+                     	</div>
+
+                     	<nav class="nav-tabs">
+                     		<ul class="nav nav-pills pull-left">
+                                <li ><a class="card-action-grey" href="#">View More</a></li>
+                            </ul>
+
+                     	</nav>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+          <div class="col-md-3">
+        	<div class="card">
+                    <div class="card-content" style="width:280px;">
+                    	<div class="card-header-grey">
+                           <h3 class="card-heading" align="center">Complaint</h3>
+                       	</div>
+                       	<div class="card-body">
+                     	   <canvas id="myChart"></canvas>
+                     	</div>
+
+                     	<nav class="nav-tabs">
+                     		<ul class="nav nav-pills pull-left">
+                                <li ><a class="card-action-grey" href="#">View More</a></li>
+                            </ul>
+
+                     	</nav>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 
 {% block sidebar %}
   <div id="content-related">
     <div class="module" id="recent-actions-module">
-      <h4 class="italic-title">{% trans 'My Actions' %}</h4>
 
-      {% load log %}
-      {% get_admin_log 10 as admin_log for_user user %}
-      {% if not admin_log %}
-        <p>{% trans 'None available' %}</p>
-      {% else %}
-        <ul class="actionlist">
-          {% for entry in admin_log %}
-            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}text-error{% endif %}">
-
-              <i class="{% if entry.is_addition %}icon-plus{% endif %}{% if entry.is_change %}icon-pencil{% endif %}{% if entry.is_deletion %}icon-trash{% endif %} icon-alpha5"></i>
-
-              {% spaceless %}
-                {% if entry.is_addition %}{% trans 'added'|capfirst %}{% endif %}
-                {% if entry.is_change %}{% trans 'changed'|capfirst %}{% endif %}
-                {% if entry.is_deletion %}{% trans 'deleted'|capfirst %}{% endif %}
-
-                {% if entry.content_type %}
-                  <span class="mini quiet">{% filter capfirst %}
-                    {% trans entry.content_type.name %}{% endfilter %}</span>
-                {% else %}
-                  <span class="mini quiet">{% trans 'Unknown content' %}</span>
-                {% endif %}
-              {% endspaceless %}&nbsp;
-
-              {% if entry.is_deletion or not entry.get_admin_url %}
-                <span class="color-grey">{{ entry.object_repr }}</span>
-              {% else %}
-                <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
     </div>
   </div>
 <!--<div class="card" >-->
@@ -98,4 +127,53 @@
     <!--<p>This is card Body</p>-->
   <!--</div>-->
 <!--</div>-->
+<script type="text/javascript">
+var endpoint = '../ticketing/api/ticket_data/'
+$.ajax({
+type: "get",
+url:endpoint,
+dataType: 'json',
+success: function(data){
+var defaultLabels=[]
+var defaultData=[]
+for(var i=0; i<data.length; i++)
+{
+defaultLabels.push(data[i].payment_date);
+defaultData.push(data[i].tickets);
+}
+var ctx = document.getElementById('myChart');
+var myChart=new Chart(ctx,{
+type:'line',
+data:{
+labels:defaultLabels,
+datasets: [{
+            label: 'Date Wise Ticket Sale',
+            data: defaultData,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+             }],
+            }
+
+});
+}
+})
+
+
+</script>
 {% endblock %}
+
