@@ -17,10 +17,10 @@ class DateWisePurchaseReport(View):
 		query = PurchaseInvoice.objects.filter(entry_date__range=(from_date, to_date)).values('entry_date').annotate(
 			amount=Sum('amount'),
 			vendor=F('vendor_id'),
-			purchase_id=F('purchase_id')
+			purchase_id=F('id')
 		)
 		for row in query:
-			products = PurchaseProduct.objects.filter(purcchase_id=row['purchase_id'])
+			products = PurchaseProduct.objects.filter(purchase_id=row['purchase_id'])
 			all_products = ''
 			i = 1
 			for p in products:
@@ -30,7 +30,7 @@ class DateWisePurchaseReport(View):
 					all_products = all_products + p.product_name + ','
 				i += 1
 			row['products'] = all_products
-		return Render.render('pdf/date_wise_purchase_report.html', {'query': query, 'university':client})
+		return Render.render('pdf/date_wise_purchase_report.html', {'query': query, 'university': client})
 
 
 class VehicleWisePurchaseReport(View):

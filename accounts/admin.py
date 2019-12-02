@@ -109,9 +109,9 @@ class TeacherAdmin(admin.ModelAdmin):
 class DriverAdmin(admin.ModelAdmin):
     form = DriverForm
     exclude = ['created_by', 'updated_by', 'created_date', 'updated_date', 'employee_id', 'email']
-    list_display = ('employee_id', 'first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
+    list_display = ('employee_id', 'first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active', 'is_free',)
     list_filter = ('first_name', 'last_name', 'is_active')
-    list_editable = ('first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
+    list_editable = ('phone_number', 'emergency_number', 'is_active', 'is_free',)
     search_fields = ['first_name']
     actions = None
     fieldsets = (
@@ -143,9 +143,9 @@ class DriverAdmin(admin.ModelAdmin):
 class StaffAdmin(admin.ModelAdmin):
     form = StaffForm
     exclude = ['created_by', 'updated_by', 'created_date', 'updated_date', 'employee_id', 'email']
-    list_display = ('employee_id', 'first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
+    list_display = ('employee_id', 'first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active', 'is_free',)
     list_filter = ('first_name', 'last_name', 'is_active')
-    list_editable = ('first_name', 'last_name', 'phone_number', 'emergency_number', 'is_active')
+    list_editable = ('phone_number', 'emergency_number', 'is_active', 'is_free',)
     actions = None
     fieldsets = (
         ('Personal Information', {

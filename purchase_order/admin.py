@@ -10,7 +10,7 @@ class ProductInline(admin.TabularInline):
 
 @admin.register(PurchaseInvoice)
 class PurchaseInvoiceAdmin(admin.ModelAdmin):
-    exclude = ['entry_date', 'amount', 'created_by']
+    exclude = ['entry_date', 'amount', 'created_by', 'purchase_id']
     list_display = ['purchase_id', 'vendor_id', 'entry_date', 'amount']
     inlines = [
         ProductInline
@@ -18,7 +18,12 @@ class PurchaseInvoiceAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.amount = 0
-        obj.purchase_id = 'PI-'+obj.purchase_id
+        purchase = PurchaseInvoice.objects.last()
+        if purchase is not None:
+            purchase_id = int(purchase.purchase_id[3:])+1
+        else:
+            purchase_id = 101
+        obj.purchase_id = 'PI-'+ str(purchase_id)
         obj.created_by = request.user
         super().save_model(request, obj, form, change)
 

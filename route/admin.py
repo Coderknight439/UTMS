@@ -4,6 +4,12 @@ from stoppage.models import Stoppage, RouteStoppage
 from django.utils.text import slugify
 
 
+
+class RouteStoppageInline(admin.TabularInline):
+    model = RouteStoppage
+    extra = 1
+    can_delete = True
+
 @admin.register(RouteInfo)
 class RouteAdmin(admin.ModelAdmin):
     exclude = ('created_by', 'updated_by', 'created_date', 'updated_date')
@@ -12,12 +18,20 @@ class RouteAdmin(admin.ModelAdmin):
     actions = None
     ordering = ['id']
     search_fields = ['start_stoppage']
+    inlines = [RouteStoppageInline]
 
     def save_model(self, request, obj, form, change):
-        obj.created_by = request.user
-        obj.updated_by = request.user
+        obj.created_by = str(request.user)
+        obj.updated_by = str(request.user)
         obj.slug = slugify(obj.route_number)
         super().save_model(request, obj, form, change)
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit = False)
+        # import pdb;pdb.set_trace()
+        for instance in instances:
+            instance.save()
+        formset.save_m2m()
 
     class Media:
         js = ('js/admin/route_search.js',)

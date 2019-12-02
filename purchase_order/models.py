@@ -42,7 +42,7 @@ class PurchaseInvoice(models.Model):
 
 class PurchaseProduct(models.Model):
 	product_name = models.CharField(max_length=256, verbose_name='Product')
-	purchase_id = models.ForeignKey(PurchaseInvoice, to_field='purchase_id', on_delete=models.CASCADE)
+	purchase_id = models.ForeignKey(PurchaseInvoice, on_delete=models.CASCADE)
 	quantity = models.IntegerField(default=1)
 	mrp = models.DecimalField(max_digits=15, decimal_places=4)
 	discount = models.IntegerField(default=0, blank=True, null=True)

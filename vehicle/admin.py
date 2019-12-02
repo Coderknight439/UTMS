@@ -17,10 +17,11 @@ class VehicleAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         try:
-            vehicle = VehicleInfo.objects.all().latest('vehicle_number')
-            vehicle_no = vehicle.vehicle_number[-3:]
+            vehicle = VehicleInfo.objects.all().last()
+            vehicle_no = vehicle.vehicle_number[4:]
         except:
             vehicle_no = '100'
+        import pdb;
         vehicle_type = obj.get_vehicle_type_display()[:3]
         driver = Driver.objects.get(id=obj.driver.id)
         staff = Staff.objects.get(id=obj.staff.id)
