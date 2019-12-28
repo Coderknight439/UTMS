@@ -10,7 +10,7 @@ def index(request, **kwargs):
 
 
 def view(request, vehicle_number, **kwargs):
-	vehicle = VehicleInfo.objects.get(vehicle_number=vehicle_number)
+	vehicle = VehicleInfo.objects.get(vehicle_number=vehicle_number, is_scheduled=True)
 	schedule = TransportSchedule.objects.get(vehicle_route=vehicle_number)
 	return render(request, 'vehicle/view.html', {
 		'vehicle': vehicle,

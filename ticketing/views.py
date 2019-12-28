@@ -76,8 +76,9 @@ def index(request, **kwargs):
 
 
 def ticket_sale_data(request, **kwargs):
-    data = TicketSale.objects.values('payment_date').annotate(
+    from_date = (datetime.datetime.now() - datetime.timedelta(days=6)).date()
+    to_date = datetime.datetime.today()
+    data = TicketSale.objects.filter(applied_date__range=(from_date, to_date)).values('applied_date').annotate(
         tickets=Count('id')
     )
-    # data_serialized = serializers.serialize('json', data)
     return JsonResponse(list(data), safe=False)

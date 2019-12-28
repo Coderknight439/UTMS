@@ -14,7 +14,6 @@ class PurchaseInvoice(models.Model):
 	amount = models.DecimalField(max_digits=20, decimal_places=4)
 	created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
 	def __str__(self):
 		return '{}'.format(self.purchase_id)
 
@@ -24,7 +23,7 @@ class PurchaseInvoice(models.Model):
 	def total_amount(self):
 		total = 0
 		for p in self.purchaseproduct_set.all():
-			raw_total = (p.quantity * p.mrp)
+			raw_total = float(p.quantity * p.mrp)
 			if p.discount != 0:
 				total += raw_total-raw_total*(p.discount/100)
 			else:
@@ -32,10 +31,10 @@ class PurchaseInvoice(models.Model):
 		self.amount = total
 		self.save()
 		ledger = Ledger.objects.create(
-			voucher_id = self.purchase_id,
-			account_id = Vendor.objects.get(pk=self.vendor_id_id).vendor_id,
-			entry_date = self.entry_date,
-			amount = self.amount*(-1)
+			voucher_id=self.purchase_id,
+			account_id=Vendor.objects.get(pk=self.vendor_id_id).vendor_id,
+			entry_date=self.entry_date,
+			amount=self.amount*(-1)
 		)
 		ledger.save()
 

@@ -14,9 +14,9 @@ def vehicles():
 class TicketSale(models.Model):
     ticket_type = models.CharField(max_length=200, choices=ticket_types, verbose_name='Type', default=ticket_types[0][0])
     vehicle_id = models.ForeignKey(VehicleInfo, on_delete=models.CASCADE, limit_choices_to=vehicles, null=True, blank=True)
-    issued_for = models.CharField(max_length = 200)
+    issued_for = models.CharField(max_length=200)
     status = models.CharField(max_length=200, choices=ticket_status, verbose_name='Status', default=ticket_status[0][0])
-    applied_date = models.DateField(auto_now_add=True)
+    applied_date = models.DateField(auto_now_add=False)
     expiry_date = models.DateField(blank=True, null=True)
     issued_by = models.CharField(blank=True, null=True, default='', max_length=200)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Total')

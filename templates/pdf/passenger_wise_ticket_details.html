@@ -18,11 +18,11 @@
 		<div id="identity">
 
             <div style="text-align: center">
-				<h4>XYZ UTMS</h4>
+				<h4>{{university}} UTMS</h4>
 				<p>10, Embankment Road</p>
 				<p>Sector-10, Uttara Model Town, Dhaka-1230, Bangladesh</p>
 				<p>Phone: (555) 555-5555</p>
-				<p>email: utms@iubat.edu</p>
+				<p>email: utms@xyz.edu</p>
 			</div>
             </div>
 
@@ -31,13 +31,14 @@
 		<div id="customer">
 
             <h2 id="report_title" align="center">
-				Passenger Wise Monthly Ticket Sale Report
+				Passenger Wise Monthly Ticket Sale Report<br>
+				From: {{from_date}}  To: {{to_date}}
 			</h2>
 
             <table class="table" style="border:0.1px solid black; margin-bottom: 30px;">
                 <tr style="height:30px; text-align:center;">
 					<td><b>Passenger</b></td>
-					<td><b>Ticket Number</b></td>
+					<!--<td><b>Ticket Number</b></td>-->
 					<td><b>Total Amount</b></td>
 					<td><b>Paid Amount</b></td>
 					<td><b>Due Amount</b></td>
@@ -45,7 +46,7 @@
 				{% for row in query %}
 				<tr style="height:20px; text-align:center">
 					<td>{{ row.issued_for }}</td>
-					<td>{{ row.ticket_number }}</td>
+					<!--<td>{{ row.ticket_number }}</td>-->
 					<td>{{ row.total_amount }}</td>
 					<td>{{ row.paid_amount }}</td>
 					<td>{{ row.due }}</td>
@@ -56,7 +57,7 @@
 		</div>
 		<div id="terms">
 		  <h5>Note</h5>
-		  <textarea>This is an auto generated invoice by {{ university }} UTMS</textarea>
+		  <textarea>This is an auto generated report by {{ university }} UTMS</textarea>
 		</div>
 
 </body>

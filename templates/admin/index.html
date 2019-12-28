@@ -17,94 +17,99 @@
     <div class="row">
             <div class="col-md-3">
         		<div class="card">
-                    <div class="card-content" style="width:280px;">
+                    <div class="card-content" style="width:280px; height:134px; background:#00CED1; color:white">
                     	<div class="card-header-blue">
-                           <h3 class="card-heading" align="center">Sale</h3>
+                           <h3 class="card-heading" align="center" style="background:#9400D3;">Current Month Sale</h3>
                        	</div>
                        	<div class="card-body">
                      	  <p class="card-p">
-                                Hello There!
-
+                               <h4 style="text-align:center; margin-top:5px;">{{ sale_amount.amount}} BDT</h4>
                             </p>
                      	</div>
 
-                     	<nav class="nav-tabs">
-                     		<ul class="nav nav-pills pull-left">
-                                <li class="card-action"><a href="#">View More</a></li>
-                            </ul>
-
-                     	</nav>
+                     	 <div style="text-align:center;">
+                                   <a href="#" style="color:black">View More</a>
+                              </div>
 
                     </div>
                 </div>
            	</div>
         <div class="col-md-3">
         	<div class="card">
-                    <div class="card-content" style="width:280px">
+                    <div class="card-content" style="width:280px; height:134px; background:#00FF7F;color:white;">
                     	<div class="card-header-orange">
-                           <h3 class="card-heading" align="center">Major Routes</h3>
+                           <h3 class="card-heading" align="center" style="background:#9400D3;">Major Routes</h3>
                        	</div>
                        	<div class="card-body">
                      	  <p class="card-p">
-                                Hi There!
-
+                            {% for row in major_routes %}
+                               <h4 style="text-align:center">{{row}}</h4>
+                            {% endfor %}
                             </p>
                      	</div>
-                     	<nav class="nav-tabs">
-                     		<ul class="nav nav-pills pull-left">
-                                <li><a class="card-action-orange" href="#">View More</a></li>
-                            </ul>
-
-                     	</nav>
+                     	 <div style="text-align:center;">
+                                   <a href="#" style="color:black">View More</a>
+                              </div>
 
                     </div>
                 </div>
         </div>
         <div class="col-md-3">
         	<div class="card">
-                    <div class="card-content" style="width:280px">
+                    <div class="card-content" style="width:280px; height:134px; background:#6495ED; color:white">
                     	<div class="card-header-grey">
-                           <h3 class="card-heading" align="center">Complaint</h3>
+                           <h3 class="card-heading" align="center" style="background:#9400D3;">Current Month Complaint</h3>
                        	</div>
                        	<div class="card-body">
                      	  <p class="card-p">
-                               Hi Buddy
-
+                               <h4 style="text-align:center;">{{ complaint.com }}</h4>
                             </p>
                      	</div>
 
-                     	<nav class="nav-tabs">
-                     		<ul class="nav nav-pills pull-left">
-                                <li ><a class="card-action-grey" href="#">View More</a></li>
-                            </ul>
-
-                     	</nav>
+                     	 <div style="text-align:center;">
+                                   <a href="#" style="color:black">View More</a>
+                              </div>
 
                     </div>
                 </div>
         </div>
     </div>
     <div class="row">
-          <div class="col-md-3">
-        	<div class="card">
-                    <div class="card-content" style="width:280px;">
-                    	<div class="card-header-grey">
-                           <h3 class="card-heading" align="center">Complaint</h3>
-                       	</div>
-                       	<div class="card-body">
-                     	   <canvas id="myChart"></canvas>
-                     	</div>
+          <div class="col-md-4">
+                <div class="card">
+                        <div class="card-content" style="width:375px; height:325px;background:#F0F8FF; color:white">
+                            <div class="card-header-grey">
+                               <h3 class="card-heading" align="center" style="background:#9400D3;">Weekly Sale Info</h3>
+                            </div>
+                            <div class="card-body">
+                               <canvas id="ticketChart" style="height:215px; width:365px;"></canvas>
+                            </div>
 
-                     	<nav class="nav-tabs">
-                     		<ul class="nav nav-pills pull-left">
-                                <li ><a class="card-action-grey" href="#">View More</a></li>
-                            </ul>
+                             <div style="text-align:center;">
+                                   <a href="#" style="color:black">View More</a>
+                              </div>
 
-                     	</nav>
-
+                        </div>
                     </div>
-                </div>
-        </div>
+          </div>
+                    <div class="col-md-3">
+                      <div class="card">
+                            <div class="card-content" style="width:505px; height:315px; background:#87CEFA; color:white">
+                                <div class="card-header-grey">
+                                   <h3 class="card-heading" align="center" style="background:#9400D3;">Weekly Purchase Info</h3>
+                                </div>
+                                <div class="card-body">
+                                   <canvas id="purchaseChart" style="height:170px; width:365px;"></canvas>
+                                </div>
+
+                              <div style="text-align:center;">
+                                   <a href="#" style="color:black">View More</a>
+                              </div>
+
+
+                            </div>
+                        </div>
+         </div>
     </div>
 </div>
 
@@ -117,63 +122,10 @@
 
     </div>
   </div>
-<!--<div class="card" >-->
-  <!--<div class="card-header">-->
-      <!--<p>Hello World</p>-->
-  <!--</div>-->
 
-
-  <!--<div class="card-container">-->
-    <!--<p>This is card Body</p>-->
-  <!--</div>-->
-<!--</div>-->
 <script type="text/javascript">
-var endpoint = '../ticketing/api/ticket_data/'
-$.ajax({
-type: "get",
-url:endpoint,
-dataType: 'json',
-success: function(data){
-var defaultLabels=[]
-var defaultData=[]
-for(var i=0; i<data.length; i++)
-{
-defaultLabels.push(data[i].payment_date);
-defaultData.push(data[i].tickets);
-}
-var ctx = document.getElementById('myChart');
-var myChart=new Chart(ctx,{
-type:'line',
-data:{
-labels:defaultLabels,
-datasets: [{
-            label: 'Date Wise Ticket Sale',
-            data: defaultData,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-             }],
-            }
-
-});
-}
-})
-
-
+ticket_sale();
+purchase_data();
 </script>
 {% endblock %}
 

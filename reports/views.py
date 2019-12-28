@@ -13,7 +13,7 @@ from vendor.models import Vendor
 class DateWisePurchaseReport(View):
 	def get(self, request, **kwargs):
 		to_date = request.GET.get('to_date') if request.GET.get('to_date') else datetime.datetime.today().date()
-		from_date = request.GET.get('from_date') if request.GET.get('from_date') else to_date.replace(day = 1)
+		from_date = request.GET.get('from_date') if request.GET.get('from_date') else to_date.replace(day=1)
 		query = PurchaseInvoice.objects.filter(entry_date__range=(from_date, to_date)).values('entry_date').annotate(
 			amount=Sum('amount'),
 			vendor=F('vendor_id'),
@@ -30,7 +30,8 @@ class DateWisePurchaseReport(View):
 					all_products = all_products + p.product_name + ','
 				i += 1
 			row['products'] = all_products
-		return Render.render('pdf/date_wise_purchase_report.html', {'query': query, 'university': client})
+			row['vendor'] = Vendor.objects.get(pk=row['vendor']).name
+		return Render.render('pdf/date_wise_purchase_report.html', {'query': query, 'university': client, 'from_date':from_date, 'to_date':to_date})
 
 
 class VehicleWisePurchaseReport(View):
@@ -65,24 +66,24 @@ class PassengerWiseTicketDetails(View):
 	def get(self, request, **kwargs):
 		to_date = request.GET.get('to_date') if request.GET.get('to_date') else datetime.datetime.today().date()
 		from_date = request.GET.get('from_date') if request.GET.get('from_date') else to_date.replace(day = 1)
-		query = TicketSale.objects.filter(payment_date__range=(from_date, to_date)).values('issued_for').annotate(
+		query = TicketSale.objects.filter(applied_date__range=(from_date, to_date)).values('issued_for').annotate(
 			total_amount=Sum('total_amount'),
 			paid_amount=Sum('paid_amount'),
 			due=F('total_amount') - F('paid_amount'),
 		)
-		for row in query:
-			tickets = TicketSale.objects.filter(issued_for=row['issued_for'])
-			all_tickets = ''
-			i = 1
-			for t in tickets:
-				if i == len(tickets):
-					all_tickets = all_tickets + t.ticket_number
-				else:
-					all_tickets = all_tickets+t.ticket_number+','
-				i += 1
-			row['ticket_number'] = all_tickets
+		# for row in query:
+		# 	tickets = TicketSale.objects.filter(issued_for=row['issued_for'])
+		# 	all_tickets = ''
+		# 	i = 1
+		# 	for t in tickets:
+		# 		if i == len(tickets):
+		# 			all_tickets = all_tickets + t.ticket_number
+		# 		else:
+		# 			all_tickets = all_tickets+t.ticket_number+','
+		# 		i += 1
+		# 	row['ticket_number'] = all_tickets
 
-		return Render.render('pdf/passenger_wise_ticket_details.html', {'query': query, 'university':client})
+		return Render.render('pdf/passenger_wise_ticket_details.html', {'query': query, 'university': client, 'from_date':from_date, 'to_date':to_date})
 
 
 class MajorRouteForecast(View):

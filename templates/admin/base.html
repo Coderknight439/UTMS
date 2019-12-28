@@ -16,6 +16,7 @@
   <script type="text/javascript" src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="../../static/vendor/jquery/Chart.min.js"></script>
   <script type="text/javascript" src="../../static/vendor/jquery/excanvas.js"></script>
+  <script type="text/javascript" src="../../static/js/chart_data.js"></script>
   {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
   <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
   {% block suit_jquery %}{% if '1.9'|django_version_gte %}<script src="{% static 'suit/js/jquery-2.2.4.min.js' %}">{% else %}<script src="{% static 'suit/js/jquery-1.8.3.min.js' %}">{% endif %}</script>{% endblock %}

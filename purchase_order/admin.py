@@ -8,6 +8,12 @@ class ProductInline(admin.TabularInline):
     can_delete = True
 
 
+# @admin.register(PurchaseProduct)
+# class PurchaseProduct(admin.ModelAdmin):
+#     list_display = ['purchase_id', 'product_name']
+#     list_editable = ['product_name']
+
+
 @admin.register(PurchaseInvoice)
 class PurchaseInvoiceAdmin(admin.ModelAdmin):
     exclude = ['entry_date', 'amount', 'created_by', 'purchase_id']
@@ -15,6 +21,7 @@ class PurchaseInvoiceAdmin(admin.ModelAdmin):
     inlines = [
         ProductInline
     ]
+    ordering = ['id']
 
     def save_model(self, request, obj, form, change):
         obj.amount = 0
