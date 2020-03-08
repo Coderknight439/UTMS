@@ -12,7 +12,7 @@
 {% block content %}
 <div id="content-main">
 <div class="module">
-          <table class="table-overview" style="width:450px;height:160px">
+          <table class="table-overview" style="width:470px;height:160px">
             <caption><a href="#" class="section">Upcoming Schedule</a></caption>
            <tr style="text-align:center; color:purple;  height:30px">
                <td>Vehicle</td>
@@ -33,7 +33,7 @@
                 </tr>
               {% endif %}
           </table>
-    <table class="table-overview" style="width:450px;height:160px">
+    <table class="table-overview" style="width:470px;height:160px">
             <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
            <tr style="color:purple; text-align:center; height:30px">
                <td>Sl</td>
@@ -47,7 +47,7 @@
               {% for row in complaint %}
               <tr style="text-align:center">
               <td>{{ forloop.counter }}</td>
-              <td>{{ row.complaint_date.date }}</td>
+              <td>{{ row.complaint_date }}</td>
                   {% if row.accepted_by %}
               <td>{{ row.accepted_by }}</td>
                   {% else %}
@@ -72,7 +72,7 @@
 
 {% block sidebar %}
 <div id="content-related">
-    <table class="table-overview" style="margin-left:40px;width:450px;height:160px">
+    <table class="table-overview" style="margin-left:40px;width:470px;height:160px">
             <caption><a href="{% url 'ticket_index' %}" class="section">Your Tickets</a></caption>
            <tr style="text-align:center; color:purple;  height:30px">
                <td>Ticket No.</td>
@@ -105,7 +105,7 @@
                 </tr>
               {% endif %}
           </table>
-     <table class="table-overview" style="margin-left:40px; margin-top:2px; width:450px;height:160px">
+     <table class="table-overview" style="margin-left:40px; margin-top:2px; width:470px;height:160px">
             <caption><a href="{% url 'vehicle_index' %}" class="section">Vehicle Info</a></caption>
            <tr style="text-align:center; color:purple;  height:30px">
                <td style="text-align:center">Vehicle</td>

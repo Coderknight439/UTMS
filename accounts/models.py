@@ -23,6 +23,8 @@ class Passenger(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True, verbose_name='Active')
+    photo = models.ImageField(upload_to='users/%Y/%m/%d/',
+                              blank=True, null=True)
 
     class Meta:
         abstract = True

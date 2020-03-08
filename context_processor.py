@@ -12,7 +12,7 @@ def clients(request):
     university = client
     vehicle_form = VehicleForm()
     # import pdb; pdb.set_trace()
-    from_date = datetime.date.today().replace(day=1)
+    from_date = datetime.datetime.now() + datetime.timedelta(-30)
     to_date = datetime.datetime.today()
     ticket_sale = TicketSale.objects.filter(applied_date__range=(from_date, to_date)).aggregate(
         amount=Sum('total_amount'),
@@ -38,7 +38,7 @@ def clients(request):
                 count += 1
             if count == 1:
                 break
-    complaint = Complaint.objects.filter(incident_date__range=(from_date, to_date)).aggregate(
+    complaint = Complaint.objects.filter(complaint_date__range=(from_date, to_date)).aggregate(
         com=Count('id')
     )
     return {

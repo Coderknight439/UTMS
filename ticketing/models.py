@@ -20,11 +20,12 @@ class TicketSale(models.Model):
     expiry_date = models.DateField(blank=True, null=True)
     issued_by = models.CharField(blank=True, null=True, default='', max_length=200)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Total')
-    paid_amount = models.DecimalField(decimal_places=2, max_digits=4, verbose_name='Paid Amount', blank=True, null=True, default=0)
+    paid_amount = models.DecimalField(decimal_places=4, max_digits=7, verbose_name='Paid Amount', blank=True, null=True, default=0)
     payment_type = models.CharField(max_length=200, choices=payment_types)
     payment_date = models.DateField(blank=True, null=True, verbose_name='Payment Date')
     ticket_number = models.CharField(max_length=300, verbose_name='Ticket No.')
     voucher_number = models.CharField(max_length=300)
+    braintree_id = models.CharField(max_length=150, blank=True)
 
     class Meta:
         db_table = 'sale_invoice'

@@ -63,7 +63,7 @@ defaultData.push(data[i].amount);
 }
 var ctx = document.getElementById('purchaseChart');
 var myChart=new Chart(ctx,{
-type:'horizontalBar',
+type:'bar',
 data:{
 labels:defaultLabels,
 datasets: [{
@@ -91,7 +91,7 @@ datasets: [{
             },
             options: {
         scales: {
-            xAxes: [{
+            yAxes: [{
                 ticks: {
                     beginAtZero: true
                 }

@@ -11,6 +11,19 @@
 
 {% block content %}
 <div id="content-main">
+    <span>
+						{% if messages %}
+							<ul class="messages">
+								{% for msg in messages %}
+								<li>
+									<div class="alert alert-{{msg.level_tag}}" role="alert">
+									{{msg.message}}
+									</div>
+								</li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+					</span>
     <table class="table-overview">
             <caption><a href="{% url 'complaint_index' %}" class="section">Complaint Box</a></caption>
            <tr style="color:purple">
@@ -20,6 +33,7 @@
                <td>Complaint Date</td>
                <td>Accepted By</td>
                <td>Status</td>
+               <td>Action</td>
            </tr>
               {% if complaint %}
               {% for row in complaint %}
@@ -30,6 +44,7 @@
               <td>{{ row.complaint_date }}</td>
               <td>{{ row.accepted_by }}</td>
               <td>{{ row.get_status_display }}</td>
+              <td><a href="{% url 'complaint_edit' row.id %}" ><i class="fa fa-edit" style="color: #6610f2"></i></a></td>
               </tr>
               {% endfor %}
               {% else %}

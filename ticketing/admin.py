@@ -26,18 +26,18 @@ class TicketInfoAdmin(admin.ModelAdmin):
 
 @admin.register(TicketSale)
 class TicketSaleAdmin(admin.ModelAdmin):
-	exclude = ['payment_date', 'applied_date', 'status', 'issued_by', 'ticket_number', 'expiry_date', 'total_amount', 'voucher_number', 'issued_for']
-	list_display = ('ticket_number', 'applied_date', 'vehicle_id', 'ticket_type', 'issued_for', 'status', 'total_amount', 'issued_by', 'paid_amount', 'payment_date')
-	list_filter = ('ticket_number', 'ticket_type', 'applied_date')
-	list_editable = ('status', 'paid_amount', 'applied_date')
+	exclude = ['payment_date', 'applied_date', 'status',  'issued_by', 'ticket_number', 'expiry_date', 'total_amount', 'voucher_number', 'issued_for']
+	list_display = ('ticket_number', 'applied_date', 'vehicle_id', 'ticket_type', 'issued_for', 'status', 'total_amount', 'issued_by', 'paid_amount', 'due')
+	list_filter = ('ticket_number', 'ticket_type', 'applied_date', 'status')
+	list_editable = ('status', 'paid_amount',)
 	search_fields = ['ticket_number']
-	ordering = ['applied_date']
+	ordering = ['-applied_date']
 
 	def get_readonly_fields(self, request, obj=None):
 		if obj and obj.status == 3:
 			self.readonly_fields+=('status',)
 		if request.user.is_staff:
-			return ['ticket_type', 'issued_for',  'issued_for', 'ticket_number']
+			return ['ticket_type', 'issued_for',  'issued_for', 'ticket_number', 'applied_date', 'total_amount', 'braintree_id', 'vehicle_id']
 
 	def save_model(self, request, obj, form, change):
 		status = obj.get_status_display()

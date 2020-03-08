@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-	<title>Major Route Forecast</title>
+	<title>Date Wise Complaint Analysis Report</title>
 	<link rel='stylesheet' type='text/css' href='../../static/invoice/css/print.css' media="print" />
 	<link rel='stylesheet' type='text/css' href='../../static/invoice/css/custom.css' />
 	<script type='text/javascript' src='../../static/invoice/js/jquery-1.3.2.min.js'></script>
@@ -18,11 +18,11 @@
 		<div id="identity">
 
             <div style="text-align: center">
-				<h4>XYZ UTMS</h4>
+				<h4>{{university}} UTMS</h4>
 				<p>10, Embankment Road</p>
 				<p>Sector-10, Uttara Model Town, Dhaka-1230, Bangladesh</p>
 				<p>Phone: (555) 555-5555</p>
-				<p>email: utms@iubat.edu</p>
+				<p>email: utms@xyz.edu</p>
 			</div>
             </div>
 
@@ -31,34 +31,35 @@
 		<div id="customer">
 
             <h2 id="report_title" align="center">
-				Major Route Forecast
+				Date Wise Complaint Analysis Report<br>
+				From: {{from_date}}   To: {{to_date}}
 			</h2>
 
             <table class="table" style="border:0.1px solid black; margin-bottom: 30px;">
                 <tr style="height:30px; text-align:center;">
-					<td><b>Route</b></td>
-					<td><b>Total Passenger</b></td>
-					<td><b>No. of Vehicles</b></td>
+					<td><b>Date</b></td>
+					<td><b>Total Complaint</b></td>
+					<td><b>Satisfied</b></td>
+					<td><b>Satisfied %</b></td>
+					<td><b>Dissatisfied</b></td>
+					<td><b>Dissatisfied %</b></td>
 				</tr>
-				{% if query %}
 				{% for row in query %}
 				<tr style="height:20px; text-align:center">
-					<td>{{ row.route }}</td>
-					<td>{{ row.total_ticket }}</td>
-					<td>{{ row.total_vehicle }}</td>
+					<td>{{ row.complaint_date }}</td>
+					<td>{{ row.total }}</td>
+					<td>{{ row.satisfied }}</td>
+					<td>{{ row.satisfied_percentage }}</td>
+					<td>{{ row.dissatisfied }}</td>
+					<td>{{ row.dissatisfied_percentage }}</td>
 				</tr>
 				{% endfor %}
-				{% else %}
-				<tr>
-					<td colspan="3">No Records To View</td>
-				</tr>
-				{% endif %}
             </table>
 
 		</div>
 		<div id="terms">
 		  <h5>Note</h5>
-		  <textarea>This is an auto generated reporte by {{ university }} UTMS</textarea>
+		  <textarea>This is an auto generated invoice by {{ university }} UTMS</textarea>
 		</div>
 
 </body>

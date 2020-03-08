@@ -15,10 +15,10 @@ from ticketing.forms import TicketForm
 @login_required(login_url='/')
 def index(request, **kwargs):
     username = request.user
-    transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now().time())[:3]
+    transport_schedule = TransportSchedule.objects.filter(start_time__gte=datetime.datetime.now())[:3]
     complaint = Complaint.objects.filter(complaint_by=username)[:3]
     vehicle = VehicleInfo.objects.order_by('?')[:3]
-    tickets = TicketSale.objects.filter(issued_for=request.user.username)[:3]
+    tickets = TicketSale.objects.filter(issued_for=request.user.username).order_by('-id')[:3]
     try:
         teacher_username = Teacher.objects.get(email=username)
     except ObjectDoesNotExist:

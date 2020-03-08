@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import login, logout, authenticate
+
+from UTMS.settings import client
 from .models import Student, Teacher
 from django.db.models import Q
 from transport_schedule.models import TransportSchedule
@@ -128,7 +130,12 @@ def user_registration(request):
 
 
 def profile(request, **kwargs):
-    return render(request, 'passenger/profile.html', {'title': 'My Profile'})
+    username = request.user.username
+    if '@' in username:
+        profile = Teacher.objects.get(email=username)
+    else:
+        profile = Student.objects.get(student_id=username)
+    return render(request, 'passenger/profile.html', {'title': 'My Profile', 'teacher': profile, 'client': client})
 
 
 def activate(request, uidb64, token):

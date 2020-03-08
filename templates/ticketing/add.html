@@ -20,15 +20,20 @@
         </div>
 
         <br>
-        <div align="center">
+        <div align="center" id="submit_line">
             <input type="submit" name="submit" class="btn btn-high btn-success" style="width:127px" value="Submit">
             <input type="submit" name="another" class="btn btn-high btn-success" style="width:157px" value="Submit and Add Another">
         </div>
     </form>
         </div>
+<script type="text/javascript" src="../../static/js/payment.js"></script>
+<script type="text/javascript">
+ticket_payment();
+</script>
 {% endblock %}
 
 {% block sidebar %}
 <div id="content-related">
 </div>
+
 {% endblock %}

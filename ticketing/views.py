@@ -1,4 +1,6 @@
 import datetime
+
+import braintree
 from django.db.models import Count
 from django.contrib import messages
 from django.http import JsonResponse
@@ -55,13 +57,15 @@ def add(request, **kwargs):
                 ticket_number=ticket_number,
                 voucher_number=''
             )
-
+            request.session['ticket_number'] = ticket_number
             query.save()
         # import pdb;
         # pdb.set_trace()
         if request.POST.get('submit', False):
             messages.success(request, 'Thank you for using UTMS. You will be notified your status soon!')
             return redirect('ticket_index')
+        elif request.POST.get('checkout', False):
+            return redirect('ticket_payment')
         else:
             form = TicketForm
             messages.success(request, 'Thank you for using UTMS. You will be notified your status soon!')
@@ -82,3 +86,40 @@ def ticket_sale_data(request, **kwargs):
         tickets=Count('id')
     )
     return JsonResponse(list(data), safe=False)
+
+
+def ticket_payment(request):
+    ticket_number = request.session.get('ticket_number')
+    ticket = get_object_or_404(TicketSale, ticket_number=ticket_number)
+    if request.method == 'POST':
+        # retrieve nonce
+        nonce = request.POST.get('payment_method_nonce', None)
+        # create and submit transaction
+        result = braintree.Transaction.sale({
+            'amount': '{:.2f}'.format(ticket.total_amount),
+            'payment_method_nonce': nonce,
+            'options': {
+                'submit_for_settlement': True
+            }
+        })
+        if result.is_success:
+            # store the unique transaction id
+            ticket.paid_amount=ticket.total_amount
+            ticket.braintree_id = result.transaction.id
+            ticket.save()
+            messages.success(request, 'Thank you for using UTMS. Your payment is done successfully!')
+            return redirect('ticket_index')
+        else:
+            ticket.delete()
+            del request.session['ticket_number']
+            request.session.modified = True
+            form = TicketForm
+            messages.success(request, 'Your Payment is not successful please try again')
+            return render(request, 'ticketing/add.html', {'form': form, 'title': 'Buy Ticket'})
+    else:
+    # generate token
+        client_token = braintree.ClientToken.generate()
+        return render(request,
+                      'ticketing/payment.html',
+                      {'order': ticket,
+                       'client_token': client_token})

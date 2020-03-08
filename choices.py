@@ -86,6 +86,7 @@ ticket_status = [
 ]
 payment_types = [
     ('0', 'Cash'),
+    ('1', 'Online'),
 ]
 
 complaint_feedback = [

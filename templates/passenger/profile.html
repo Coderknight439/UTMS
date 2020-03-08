@@ -1,20 +1,114 @@
-{% extends "admin/base_site.html" %}
-{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{title}}</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Civic - CV Resume">
+	<meta name="keywords" content="resume, civic, onepage, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i,700" rel="stylesheet">
 
-{% block coltype %}colMS{% endblock %}
+	<!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="../../../static/css/profile/bootstrap.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/profile/font-awesome.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/profile/flaticon.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/profile/owl.carousel.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/profile/magnific-popup.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../static/css/profile/style.css" media="all">
 
-{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+</head>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
 
-{% block breadcrumbs %}{% endblock %}
+	<!-- Header section start -->
+	<header class="header-section">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="site-logo">
+						<h2><a href="{% url 'home' %}">UTMS</a></h2>
+						<p>Welcome to UTMS</p>
+					</div>
+				</div>
+				<div class="col-md-8 text-md-right header-buttons">
+					<a href="#" class="site-btn">Change Password</a>
+					<a href="{% url 'user_logout' %}" class="site-btn">Logout</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Header section end -->
 
-{% block content %}
-<div id="content-main">
-</div>
-{% endblock %}
+	<!-- Hero section start -->
+	<section class="hero-section spad">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xl-10 offset-xl-1">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="hero-text">
+								<h3>{{teacher.first_name}} {{teacher.last_name}}</h3>
+								<p>From department of {{ teacher.department }} </p>
+							</div>
+							<div class="hero-info">
+								<h2>Personal Info</h2>
+								<ul>
+									<li><span>Date of Birth</span>{{teacher.birth_date}}</li>
+									<li><span>Address</span>{{teacher.address_line_1}}</li>
+									<li><span>E-mail</span>{{teacher.email}}</li>
+									<li><span>Phone </span>{{teacher.phone_number}}</li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<figure class="hero-image">
+								<img src="{{ teacher.photo.url }}"  style="float: right;">
+							</figure>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Hero section end -->
 
-{% block sidebar %}
-<div id="content-related">
-</div>
-{% endblock %}
+	<!-- Social links section start -->
+	<!--<div class="social-section">-->
+		<!--<div class="container-fluid">-->
+			<!--<div class="row">-->
+				<!--<div class="col-xl-10 offset-xl-1">-->
+					<!--<div class="social-link-warp">-->
+						<!--<div class="social-links">-->
+							<!--<a href=""><i class="fa fa-pinterest"></i></a>-->
+							<!--<a href=""><i class="fa fa-linkedin"></i></a>-->
+							<!--<a href=""><i class="fa fa-instagram"></i></a>-->
+							<!--<a href=""><i class="fa fa-facebook"></i></a>-->
+							<!--<a href=""><i class="fa fa-twitter"></i></a>-->
+						<!--</div>-->
+						<!--<h2 class="hidden-md hidden-sm">My Social Profiles</h2>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!-- Social links section end -->
+
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+    <script type="text/javascript" src="../../static/js/profile/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../../static/js/profile/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../static/js/profile/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="../../static/js/profile/js/magnific-popup.min.js"></script>
+    <script type="text/javascript" src="../../static/js/profile/js/circle-progress.min.js"></script>
+    <script type="text/javascript" src="../../static/js/profile/js/main.js"></script>
+</body>
+</html>

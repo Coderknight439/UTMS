@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
+
 from .models import VehicleInfo
 from drivers.models import Driver, Staff
 
@@ -23,12 +26,19 @@ class VehicleAdmin(admin.ModelAdmin):
             vehicle_no = '100'
         import pdb;
         vehicle_type = obj.get_vehicle_type_display()[:3]
-        driver = Driver.objects.get(id=obj.driver.id)
-        staff = Staff.objects.get(id=obj.staff.id)
-        driver.is_free = 'False'
-        driver.save()
-        staff.is_free = 'False'
-        staff.save()
+        try:
+            driver = Driver.objects.get(id=obj.driver.id)
+            staff = Staff.objects.get(id=obj.staff.id)
+        except ObjectDoesNotExist:
+            driver = None
+            staff = None
+            messages.success(request, 'Error!')
+        if driver:
+            driver.is_free = 'False'
+            driver.save()
+        if staff:
+            staff.is_free = 'False'
+            staff.save()
         if obj.vehicle_number == "":
             obj.vehicle_number = vehicle_type +'-'+str(int(vehicle_no)+1)
         super().save_model(request, obj, form, change)

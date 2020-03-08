@@ -5,7 +5,7 @@ from .models import Complaint
 
 
 def index(request):
-	complaint = Complaint.objects.filter(complaint_by=request.user)[:3]
+	complaint = Complaint.objects.filter(complaint_by=request.user)
 	return render(request, 'complaint/index.html', {'complaint': complaint, 'title': 'Complaint List'})
 
 
@@ -32,6 +32,7 @@ def add(request, **kwargs):
 			return redirect('complaint_index')
 		else:
 			form = ComplaintForm
+			messages.error(request, 'Your complaint can not be filed. Check error please.')
 			return render(request, 'complaint/add.html', {'form': form, 'title': 'Complaint Add'})
 	form = ComplaintForm
 	return render(request, 'complaint/add.html', {'form': form, 'title': 'Complaint Add'})
